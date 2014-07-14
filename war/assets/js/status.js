@@ -107,6 +107,17 @@ $(window).load(function() {
 		});
 	});
 	
+	$('.sort').change(function() {
+		var status = $(this).val();
+		$('.invited').html(load('.invited'));
+		$.post('getInvitedSorted.jsp', {
+			sortBy : status,
+			eventID : eventID
+		}, function(data) {
+			$('.invited').html(data);
+		});
+	});
+	
 	function runEffect() {
 		$(".message").show().delay(5000).fadeOut();
     }

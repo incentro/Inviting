@@ -7,7 +7,7 @@
 	String genodigdeID = request.getParameter("genodigdeID");
 	String mailID 				= request.getParameter("mailid");			
 	
-	MailISendO mio = new MailISendO();
+	MailSendIO mio = new MailSendIO();
 	mio.constructor(eventID, mailID, true, genodigdeID);
 	out.println("De mail is verstuurd");
 %>

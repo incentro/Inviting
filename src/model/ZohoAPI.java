@@ -5,11 +5,9 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -130,17 +128,6 @@ public class ZohoAPI extends DbAbstract {
 
 				aContacts = parseXML(postResp, true);
 
-				java.sql.Timestamp timeStamp = getDate();
-				try {
-					super.addUpdateRecord("UPDATE cache SET updated='"
-							+ timeStamp + "'");
-					System.out.println("date set at: " + timeStamp);
-					super.closeConnection();
-
-				} catch (Exception e) {
- 
-				}
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -164,6 +151,8 @@ public class ZohoAPI extends DbAbstract {
 			post.setParameter("authtoken", authtoken);
 			post.setParameter("scope", "crmapi");
 			post.setParameter("newFormat", "1");
+			post.setParameter("fromIndex", "1");
+			post.setParameter("toIndex", "200");
 			post.setParameter("parentModule", "Campaigns");
 			post.setParameter("id", eventID);
 			HttpClient httpclient = new HttpClient();
@@ -208,24 +197,7 @@ public class ZohoAPI extends DbAbstract {
 	public ArrayList<Evenement> EventsOphalen() {
 		String apiKey =  getKey();
 		ArrayList<Evenement> aEvents = new ArrayList<Evenement>();
-		
-		String updated = "2008-05-27 00:00:00";
-		Date date = null;
-		try {
-			super.makeConnection();
-			ResultSet rs = super.makeResultSet("SELECT updatedEvent FROM cache WHERE 1");
-			while (rs.next()) {
-				date = rs.getTimestamp("updatedEvent");
-			}
-			super.closeConnectRst();
-		} catch (SQLException ex) {
-			System.out.println(ex);
-			System.out.println("geen datum opgehaald");
-		}
-		updated = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
-		System.out.println("******************* " + updated+ " ***************************");
-			
-
+	
 		try {
 			String authtoken = apiKey;
 			String targetURL = "https://crm.zoho.com/crm/private/xml/Campaigns/getRecords";
@@ -234,7 +206,7 @@ public class ZohoAPI extends DbAbstract {
 			post.setParameter("scope", "crmapi");
 			post.setParameter("fromIndex", "1");
 			post.setParameter("toIndex", "200");
-			post.setParameter("lastModifiedTime", updated);
+			//post.setParameter("lastModifiedTime", updated);
 															// 2008-05-27
 															// 00:00:00
 			HttpClient httpclient = new HttpClient();
@@ -254,17 +226,6 @@ public class ZohoAPI extends DbAbstract {
 				String postResp = post.getResponseBodyAsString();
 
 				aEvents = parseXMLevent(postResp, true);
-
-				java.sql.Timestamp timeStamp = getDate();
-				try {
-					super.addUpdateRecord("UPDATE cache SET updatedEvent='"
-							+ timeStamp + "'");
-					System.out.println("date set at: " + timeStamp);
-					super.closeConnection();
-
-				} catch (Exception e) {
- 
-				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -307,7 +268,7 @@ public class ZohoAPI extends DbAbstract {
 
 			NodeList contacts = dom.getElementsByTagName("row");
 			for (int r = 0; r < contacts.getLength(); r++) {
-				ContactZoho zohoContact = new ContactZoho("","", "", "", "", "","", "","",	"", "", "", true);
+				ContactZoho zohoContact = new ContactZoho("","", "", "","","", "", "","", "", "", 0, 0, 0 ,0,0, true);
 				Element row = (Element) contacts.item(r);
 				System.out.println("contact nummer " + row.getAttribute("no"));
 				NodeList contact = row.getElementsByTagName("FL");
@@ -379,7 +340,7 @@ public class ZohoAPI extends DbAbstract {
 	
 	
 	
-	private ArrayList<Evenement> parseXMLevent(String xml, boolean isStream) {
+	private ArrayList<Evenement> parseXMLevent(String xml, boolean isStream) throws ParseException {
 		//below the url for contacts related to event
 		//https://crm.zoho.com/crm/private/xml/Contacts/getRelatedRecords?newFormat=1&authtoken=090f197a6e0fe85de40b7e2921e7c665&scope=crmapi&parentModule=Campaigns&id=970434000000438001
 		
@@ -402,8 +363,9 @@ public class ZohoAPI extends DbAbstract {
 			}
 
 			NodeList contacts = dom.getElementsByTagName("row");
+			DateHandler dh = new DateHandler();
 			for (int r = 0; r < contacts.getLength(); r++) {
-				Evenement event = new Evenement("","","", "2000-01-01",0, 0, "","");
+				Evenement event = new Evenement("","","", dh.stringToTimestamp("2000-01-01"),0, 0, "","", "", false, null);
 				Element row = (Element) contacts.item(r);
 				System.out.println("contact nummer " + row.getAttribute("no"));
 				NodeList contact = row.getElementsByTagName("FL");
@@ -425,19 +387,22 @@ public class ZohoAPI extends DbAbstract {
 						if(fieldValue == "0000-00-00"){
 							fieldValue  = "2000-01-01";
 						}
-						event.setDatum(fieldValue);
+						event.setDatum(dh.stringToTimestamp(fieldValue));
 						break;
 					case "Campaign Name":
 						event.setNaam(fieldValue);
 						break;
 					case "Type":
-
+						event.setType(fieldValue);
 						break;
 					case "Description":
 						event.setSubtitel(fieldValue);
 						break;
 					case "Campaign Owner":
 						event.setContactPersoon(fieldValue);
+						break;
+					case "Modified Time":
+						event.setUpdated(dh.dateTimeToDate(fieldValue));
 						break;
 					}
 
@@ -457,27 +422,6 @@ public class ZohoAPI extends DbAbstract {
 		return array;
 	}
 
-	// / ***********Get the current date in timestamp ************
-	public Timestamp getDate() {
-		java.util.Date date = null;
-		java.sql.Timestamp timeStamp = null;
-		try {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(new Date());
-			java.sql.Date dt = new java.sql.Date(calendar.getTimeInMillis());
-			java.sql.Time sqlTime = new java.sql.Time(calendar.getTime()
-					.getTime());
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd hh:mm:ss");
-			date = simpleDateFormat.parse(dt.toString() + " "
-					+ sqlTime.toString());
-			timeStamp = new java.sql.Timestamp(date.getTime());
-		} catch (ParseException pe) {
-		} catch (Exception e) {
-		}
-		return timeStamp;
-	}
-	
 	public String getKey(){
 		String key = null;
 		try {
@@ -509,7 +453,11 @@ public class ZohoAPI extends DbAbstract {
 	
 	
 	
-	public String insertOpmerking(String user, String title, String content) throws IOException{
+	public String insertOpmerking(String user, String titlea, String contenta) throws IOException{
+		String contentb = contenta.replaceAll( "\n" ,"%0a%0d");
+		String content = contentb.replaceAll(" ", "%20");
+		String title = titlea.replaceAll(" ", "%20");
+		
 	String root = "https://crm.zoho.com/crm/private/xml/Notes/insertRecords?newFormat=1&authtoken="+getKey()+"&scope=crmapi&xmlData=";
 	String xml = "<Notes>" +"<row%20no=\"1\">" +"<FL%20val=\"entityId\">"+user+"</FL>" +"<FL%20val=\"Note%20Title\">"+title+"</FL>" +"<FL%20val=\"Note%20Content\">"+content+"</FL>" +"</row>" +	"</Notes>";
 
@@ -584,12 +532,14 @@ System.out.println(url);
 //	"<FL val='State'>Tamil Nadu</FL>" +
 //	"<FL val='Zip Code'>6000001</FL>" +
 //	"<FL val='Country'>India</FL>" +
-	"<FL val='Description'>"+description+"</FL>" +
+	"<FL val='Description'><![CDATA["+description+"]]></FL>" +
 	"</row>" +
 	"</Leads>" ;
 	
 	String urla = root+leadxml;
-	String url = urla.replaceAll(" ", "%20");
+	String urlb = urla.replaceAll( "\n" ,"%0a%0d");
+	String url = urlb.replaceAll(" ", "%20");
+	
 System.out.println(url);
 	//////////////////////////////////
 	try {

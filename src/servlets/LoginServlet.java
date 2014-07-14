@@ -4,6 +4,7 @@ import model.*;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +35,19 @@ public class LoginServlet extends HttpServlet   {
 		}
 		GebruikersIO g = new GebruikersIO();
 		if(g.Login(mail, wachtwoord) == true){
-			response.sendRedirect("eOverzicht.jsp");
 			req.getSession().setAttribute("userMail", mail);
 			req.getSession().setAttribute("status", "ingelogd");
-			sd.synchronize();
+			
+			try {
+				if(sd.synchronize()) {
+					response.sendRedirect("eOverzicht.jsp");
+				} else {
+					response.sendRedirect("eOverzicht.jsp?message=Er+zijn+te+veel+nieuwe+contacten+,+graag+een+grote+update+maken");
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		else{

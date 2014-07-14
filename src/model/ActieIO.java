@@ -1,9 +1,7 @@
 package model;
 
 import java.sql.ResultSet;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,21 +23,20 @@ public class ActieIO extends DbAbstract {
 				Actie a = new Actie(rs.getInt("id"), rs.getString("eventID"), rs.getString("user"), rs.getDate("date") ,rs.getString("text"),rs.getString("actor"),rs.getString("contact"),  rs.getString("voornaam"), rs.getString("achternaam"));
 				aActie.add(a);
 			}
-		super.closeConnectRst();
 		} catch (Exception ex) {
 			System.out.println(ex+ "het ophalen van alle acties is mislukt");
+		} finally {
+			super.closeConnectRst();
 		}
 		
 		return aActie;
 	}
 	
 	public boolean checkDate(Date date) throws ParseException {
+		//DateHandler dh = new DateHandler();
+		Date current = new Date();
 		boolean b = false;
-		Date current = date( new Date());
-		if(current.after(date)){
-			b = true;
-		}
-		else if(current.equals(date)){
+		if(current.after(date) || current.equals(date)){
 			b = true;
 		}
 		return b;
@@ -75,7 +72,7 @@ public class ActieIO extends DbAbstract {
 			rs = super.makeResultSet("SELECT * FROM actie WHERE eventID='"+eventID+"' AND date='"+datum+"'");
 			}
 			while (rs.next()) {
-				Actie a = new Actie(rs.getInt("id"), rs.getString("eventID"), rs.getString("user"), date(rs.getDate("date")),rs.getString("text"),rs.getString("actor"),rs.getString("contact"),  rs.getString("voornaam"), rs.getString("achternaam"));
+				Actie a = new Actie(rs.getInt("id"), rs.getString("eventID"), rs.getString("user"), rs.getDate("date"),rs.getString("text"),rs.getString("actor"),rs.getString("contact"),  rs.getString("voornaam"), rs.getString("achternaam"));
 				aActie.add(a);
 			}
 		super.closeConnectRst();
@@ -86,11 +83,11 @@ public class ActieIO extends DbAbstract {
 		return aActie;
 	}
 	
-	public void setActie(String eventID, String user, String date, String text, String actor, String contact){
+	public void setActie(String eventID, String user, String sDate, String text, String actor, String contact) throws ParseException{
 		String query = "INSERT INTO actie (eventID, user, date, text, actor, contact)";
-		query += "VALUES('" + eventID + "', '" + user + "',  '" + date + "', '" + text
+		query += "VALUES('" + eventID + "', '" + user + "',  '" + sDate + "', '" + text
 				+ "', '" + actor + "', '"+ contact + "')";
-
+System.out.println(query);
 		try {
 			 makeConnection();
 			 makeResultSetUpdate(query);
@@ -101,12 +98,10 @@ public class ActieIO extends DbAbstract {
 		}
 	}
 	
-	public boolean checkActies(String eventID){
-		
+	public boolean checkActies(String eventID) throws ParseException{
+		DateHandler dh = new DateHandler();
 		boolean aantal = false;
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		String current = df.format(new Date());
-		String query = "SELECT * FROM actie WHERE eventID='"+eventID+"' AND date <="+current+" ";
+		String query = "SELECT * FROM actie WHERE eventID='"+eventID+"' AND date <='"+dh.getUniDate()+"' ";
 		try {
 			 ResultSet rs = null;
 			makeConnection();
@@ -136,14 +131,6 @@ public class ActieIO extends DbAbstract {
 		} catch (Exception ex) {
 				System.out.println("het verwijderen van een actie is mislukt");
 		}
-	}
-	
-	public Date date(Date date) throws ParseException{
-		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-		String datum = df.format(date);
-		 date = new SimpleDateFormat("dd-MM-yyyy").parse(datum);
-
-		return date;
 	}
 	
 }

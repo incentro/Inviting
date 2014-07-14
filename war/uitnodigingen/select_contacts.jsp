@@ -8,7 +8,7 @@
                 String domain = request.getParameter("domain");
 
                         GenodigdenIO gIo = new GenodigdenIO();       
-                        for(ContactZoho g : gIo.checkboxSearch(level, domain))
+                        for(ContactZoho g : gIo.checkboxSearch(eventID, level, domain))
                 		{
                 		%>
                 			<tr class="hover">

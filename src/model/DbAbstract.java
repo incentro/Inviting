@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public abstract class DbAbstract {
-    private String url = "localhost", user = "root", pass = "", db = "hartong1_is";
+    private String url = "hartong.net", user = "hartong1_is", pass = "1Nc3ntr0", db = "hartong1_is";
     private int port = 3306, rstU;
     private ResultSet rst;
     protected Connection con;
@@ -40,7 +40,7 @@ public abstract class DbAbstract {
      */
 
     public void addUpdateRecord(String query) {
-
+    	System.out.println("addUpdateRecord:"+query);
 	try {
 	    makeConnection();
 	    makeResultSetUpdate(query);
@@ -49,11 +49,6 @@ public abstract class DbAbstract {
 			System.out.println("fout: " + e);
 	}
     }
-
-    public void updateRecord(String query) {
-
-    }
-
     /*
      * connectie opzetten naar de database
      * 
@@ -77,12 +72,13 @@ public abstract class DbAbstract {
      */
 
     public ResultSet makeResultSet(String query) {
-
+System.out.println(query);
 	try {
 	    rst = stmt.executeQuery(query);
 	} catch (SQLException e) {
 
 	    e.printStackTrace();
+	    System.out.println("Error in makeResultSet= "+ query+"\n" + e);
 	}
 	return rst;
 
@@ -95,7 +91,7 @@ public abstract class DbAbstract {
      */
 
     public void makeResultSetUpdate(String query) {
-
+    	System.out.println("resultset query :"+query);
 	try {
 	    rstU = stmt.executeUpdate(query);
 	} catch (SQLException e) {

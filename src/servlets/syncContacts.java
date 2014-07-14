@@ -26,6 +26,7 @@ public class syncContacts  extends HttpServlet {
 			System.out.println("lets begin");
 			//contact.deleteAllContacts();
 			contact.construct(aContacts);
+			
 
 			response.sendRedirect("changeKey.jsp?message=Alle+contacten+zijn+vervangen");
 		}

@@ -44,9 +44,9 @@
      <p>
      	aanwezigheid:
 			 <select class="bulk-apperance">
-            <option value="2">geaccepteerd</option>
+            <option value="1">geaccepteerd</option>
             <option value="3">geweigerd</option>
-            <option value="1">afwachtend</option>
+            <option value="2">afwachtend</option>
             </select>
             <input type='submit' value='verander status' id="changeApperance" />
      </p>
@@ -92,7 +92,15 @@
                 <th>Bedrijf</th>
                 <th>Functie</th>
                 <th>Contactpersoon</th>
-                <th>Status</th>           
+                <th>Status sorteer<br />
+                
+
+                	<input type="radio" name="sort" class='sort' value='mailen' /> | 
+                	<input type="radio" name="sort" class='sort' value='bellen' /> | 
+                	<input type="radio" name="sort" class='sort' value='hardcopy' /> | 
+                	<input type="radio" name="sort" class='sort' value='status' selected /> | 
+                	<input type="radio" name="sort" class='sort' value='prioriteit' />             
+                </th>           
              </tr> 
             </thead>
             <tbody class="invited">
@@ -103,6 +111,6 @@
     
     <script src="../assets/js/jquery.1.8.0.min.js"></script>    
     <script src="../assets/js/status.js"></script>
-	<!-- <script type="text/javascript" src="../assets/js/sorttable.min.js"></script> -->
+    <!--<script src="../assets/js/sorttable.min.js"></script> -->
 </body>
 </html>

@@ -5,12 +5,13 @@
 
 String eventID  = request.getParameter("eventID");
 
-ZohoAPI zc = new ZohoAPI();
+ZohoAPI za= new ZohoAPI();
 UitnodigingIO UIo   = new UitnodigingIO();
 
 ArrayList<ContactZoho> aContacts = new ArrayList<ContactZoho>() ;
 
-aContacts = zc.koppelContacten(eventID);
+aContacts = za.koppelContacten(eventID);
+
 
 for(ContactZoho l :  aContacts){
 	UIo.genodigdenToevoegen(l.getId(), eventID);

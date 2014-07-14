@@ -57,7 +57,7 @@ ArrayList<Gebruiker> aUsers = gio.listGebruikers();
 		<input type="text" name="user_bedrijf" placeholder="bedrijf" title="geef aan voor welk bedrijf het contactpersoon werkt" />
 		<input type="password" name="user_pass" placeholder="Password" title="geef het wachtwoord waarmee de gebruiker kan inloggen" />
 		<input type="password" name="user_cpass" placeholder="Confirm Password" title="voer nog een keer het wachtwoord in" />
-		<input type="button" name="user_submit" class="submit action-button" id="gebruiker" value="Submit" />
+		<input type="button" name="user_submit" class="submit action-button" id="gebruiker" value="Voeg toe" />
 	</fieldset>
 	<!--  ************************************************************************************** -->
 </form>

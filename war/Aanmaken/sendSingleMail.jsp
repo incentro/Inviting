@@ -2,13 +2,12 @@
 <%@page import="model.*"%>
 <%@page import="domein.*"%>
 <%
-
-String receiver		= request.getParameter("receiver");
+	String receiver		= request.getParameter("receiver");
 String eventIDs 		= request.getParameter("eventID");
 String mailIDs		= request.getParameter("mailID");
 
     	BezoekerIO bio = new BezoekerIO();
-    	MailISendO mso = new MailISendO();
+    	MailSendIO mso = new MailSendIO();
 
     	int mailID 			= Integer.parseInt(mailIDs);
     	
@@ -44,5 +43,4 @@ String mailIDs		= request.getParameter("mailID");
     	message = message.replaceAll( "\\{link\\}" , mail.getLink());
 
 out.println(mIo.SendMail(message, receiver, mail.getOnderwerp()));
-  
 %> 

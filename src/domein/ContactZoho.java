@@ -1,13 +1,15 @@
 package domein;
 
 public class ContactZoho {
-	String voornaam, achternaam, mail, functie, functie_domain, functie_level, bedrijf, telefoon, mobiel, contactpersoon, status;
+	String voornaam, achternaam, mail, functie, functie_domain, functie_level, bedrijf, telefoon, mobiel, contactpersoon;
 	String id;
+	int bellen, mailen, hardcopy, prioriteit, status;
 	boolean optOut;
 	public ContactZoho(String voornaam, String achternaam, String mail,
 			String functie, String functie_domain, String functie_level,
 			String bedrijf, String telefoon, String mobiel,
-			String contactpersoon, String status, String id, boolean optOut) {
+			String contactpersoon, String id, int bellen, int mailen,
+			int hardcopy, int prioriteit, int status, boolean optOut) {
 		super();
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
@@ -19,8 +21,12 @@ public class ContactZoho {
 		this.telefoon = telefoon;
 		this.mobiel = mobiel;
 		this.contactpersoon = contactpersoon;
-		this.status = status;
 		this.id = id;
+		this.bellen = bellen;
+		this.mailen = mailen;
+		this.hardcopy = hardcopy;
+		this.prioriteit = prioriteit;
+		this.status = status;
 		this.optOut = optOut;
 	}
 	public String getVoornaam() {
@@ -83,17 +89,41 @@ public class ContactZoho {
 	public void setContactpersoon(String contactpersoon) {
 		this.contactpersoon = contactpersoon;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getBellen() {
+		return bellen;
+	}
+	public void setBellen(int bellen) {
+		this.bellen = bellen;
+	}
+	public int getMailen() {
+		return mailen;
+	}
+	public void setMailen(int mailen) {
+		this.mailen = mailen;
+	}
+	public int getHardcopy() {
+		return hardcopy;
+	}
+	public void setHardcopy(int hardcopy) {
+		this.hardcopy = hardcopy;
+	}
+	public int getPrioriteit() {
+		return prioriteit;
+	}
+	public void setPrioriteit(int prioriteit) {
+		this.prioriteit = prioriteit;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	public boolean isOptOut() {
 		return optOut;
@@ -101,6 +131,8 @@ public class ContactZoho {
 	public void setOptOut(boolean optOut) {
 		this.optOut = optOut;
 	}
+	
+	
 	
 	
 }

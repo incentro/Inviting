@@ -12,7 +12,7 @@
 	
 	
 	
-	MailISendO mio = new MailISendO();
+	MailSendIO mio = new MailSendIO();
 	MailIO mo = new MailIO();
 	MailLogin ml = mo.getMailLogin();
 	String outcome = mio.SendMail(from,ml.getEmail(), ml.getPass(), subject, to, message);

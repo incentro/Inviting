@@ -5,6 +5,21 @@
  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
  http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" 
  version="2.4"> 
+ <!-- Session Configuration -->
+<session-config>
+        <session-timeout>60</session-timeout>
+</session-config>
+
+ <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+        <!-- <location>displayException</location> -->
+</error-page>
+
+<welcome-file-list>
+    <welcome-file>/eOverzicht.jsp</welcome-file>
+</welcome-file-list>
+
  <!-- servlet login-->
  <servlet> 
  		<servlet-name>inloggen</servlet-name> 
@@ -74,6 +89,16 @@
    	<servlet-name>CreateMail</servlet-name> 
  		<url-pattern>/CreateMail.do</url-pattern> 
  	</servlet-mapping> 
+   
+   <!-- servlet mailtemplate aanmaken of wijzigen-->
+    	<servlet> 
+ 		<servlet-name>CreateTemplate</servlet-name> 
+ 		<servlet-class>servlets.CreateTemplateServlet</servlet-class> 
+ 	</servlet>  
+ 	<servlet-mapping> 
+   	<servlet-name>CreateTemplate</servlet-name> 
+ 		<url-pattern>/CreateTemplate.do</url-pattern> 
+ 	</servlet-mapping> 
  	
     <!-- servlet evenement opslaan-->
      	<servlet> 
@@ -133,6 +158,16 @@
  	<servlet-mapping> 
    	<servlet-name>ContactsZoho</servlet-name> 
  		<url-pattern>/cyncContacts.do</url-pattern> 
+ 	</servlet-mapping> 
+ 		
+ 	<!-- servlet alle contacten verwijderen-->
+ 	     	<servlet> 
+ 		<servlet-name>DeleteContacts</servlet-name> 
+ 		<servlet-class>servlets.DeleteContactsServlet</servlet-class> 
+ 	</servlet>  
+ 	<servlet-mapping> 
+   	<servlet-name>DeleteContacts</servlet-name> 
+ 		<url-pattern>/DeleteContacts.do</url-pattern> 
  	</servlet-mapping> 
  	
 </web-app> 

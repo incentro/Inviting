@@ -2,9 +2,7 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +15,7 @@ public class EvenementenIO extends DbAbstract {
 	}
 
 	public Evenement getEvent(String id) {
-		Evenement e = new Evenement("", "", "", "", 0, 0, "", "");
+		Evenement e = new Evenement("", "", "", null, 0, 0, "", "", "", false, null);
 		try {
 			super.makeConnection();
 			ResultSet rs = super.makeResultSet("SELECT * FROM event WHERE eventID= '"+id+"'");
@@ -25,11 +23,14 @@ public class EvenementenIO extends DbAbstract {
 					e.setEventID( id);
 					e.setNaam(rs.getString("naam"));
 					e.setSubtitel(rs.getString("subtitel"));
-					e.setDatum(dateToString(rs.getDate("datum")));
+					e.setDatum(rs.getDate("datum"));
 					e.setLocatieID(rs.getInt("locatieID"));
 					e.setProgrammaID(rs.getInt("programmaID"));
 					e.setContactPersoon( rs.getString("contactpersoon"));
 					e.setOrganisator(rs.getString("organisator"));
+					e.setType(rs.getString("type"));
+					e.setRemoved(rs.getBoolean("removed"));
+					
 			}
 			super.closeConnectRst();
 			return e;
@@ -50,12 +51,14 @@ public class EvenementenIO extends DbAbstract {
 				String EventID = rs.getString("eventID");
 				String naam = rs.getString("naam");
 				String subtitel = rs.getString("subtitel");
-				String Datum  = dateToString(rs.getDate("datum"));
+				Date datum  = rs.getDate("datum");
 				int locatieID = rs.getInt("locatieID");
 				int programmaID = rs.getInt("programmaID");
 				String contactPersoon = rs.getString("contactpersoon");
 				String organisator = rs.getString("organisator");
-				Evenement e = new Evenement(EventID, naam, subtitel, Datum, locatieID, programmaID, contactPersoon, organisator);
+				String type = rs.getString("type");
+				boolean removed = rs.getBoolean("removed");
+				Evenement e = new Evenement(EventID, naam, subtitel, datum, locatieID, programmaID, contactPersoon, organisator, type, removed, null);
 				eList.add(e);
 			}
 		} catch (SQLException ex) {
@@ -67,21 +70,23 @@ public class EvenementenIO extends DbAbstract {
 	
 	public ArrayList<Evenement> listUpcomingEvents() throws ParseException {
 		ArrayList<Evenement> eList = new ArrayList<Evenement>();
+		DateHandler dh = new DateHandler();
 		try {
 			super.makeConnection();
-			String query = "SELECT * FROM event  WHERE datum > '"+date()+"' ORDER BY datum DESC";
-			ResultSet rs = super.makeResultSet(query);
+			ResultSet rs = super.makeResultSet("SELECT * FROM `event`  WHERE `datum` >= '"+dh.getDate()+"' ORDER BY `datum` DESC");
 			while (rs.next()) {
+				
 				String EventID = rs.getString("eventID");
 				String naam = rs.getString("naam");
 				String subtitel = rs.getString("subtitel");
-				String Datum  = dateToString(rs.getDate("datum"));
+				Date datum  = rs.getDate("datum");
 				int locatieID = rs.getInt("locatieID");
 				int programmaID = rs.getInt("programmaID");
 				String contactPersoon = rs.getString("contactpersoon");
 				String organisator = rs.getString("organisator");
-				Evenement e = new Evenement(EventID, naam, subtitel, Datum, locatieID, programmaID, contactPersoon, organisator);
-				
+				String type = rs.getString("type");
+				boolean removed = rs.getBoolean("removed");
+				Evenement e = new Evenement(EventID, naam, subtitel, datum, locatieID, programmaID, contactPersoon, organisator, type, removed, null);
 				eList.add(e);
 			}
 		} catch (SQLException ex) {
@@ -93,20 +98,23 @@ public class EvenementenIO extends DbAbstract {
 	
 	public ArrayList<Evenement> listPastEvents() throws ParseException {
 		ArrayList<Evenement> eList = new ArrayList<Evenement>();
+		DateHandler dh = new DateHandler();
 		try {
 			super.makeConnection();
-			ResultSet rs = super.makeResultSet("SELECT * FROM event  WHERE datum <= '"+date()+"' ORDER BY datum DESC");
+			ResultSet rs = super.makeResultSet("SELECT * FROM `event`  WHERE `datum` < '"+dh.getDate()+"' ORDER BY `datum` DESC");
 			while (rs.next()) {
 				
 				String EventID = rs.getString("eventID");
 				String naam = rs.getString("naam");
 				String subtitel = rs.getString("subtitel");
-				String Datum  = dateToString(rs.getDate("datum"));
+				Date datum  = rs.getDate("datum");
 				int locatieID = rs.getInt("locatieID");
 				int programmaID = rs.getInt("programmaID");
 				String contactPersoon = rs.getString("contactpersoon");
 				String organisator = rs.getString("organisator");
-				Evenement e = new Evenement(EventID, naam, subtitel, Datum, locatieID, programmaID, contactPersoon, organisator);
+				String type = rs.getString("type");
+				boolean removed = rs.getBoolean("removed");
+				Evenement e = new Evenement(EventID, naam, subtitel, datum, locatieID, programmaID, contactPersoon, organisator, type, removed, null);
 				eList.add(e);
 			}
 		} catch (SQLException ex) {
@@ -116,34 +124,12 @@ public class EvenementenIO extends DbAbstract {
 		return eList; 
 	}
 	
-	public void voegEvenementToe(Evenement e) throws ParseException{
-		String naam = e.getNaam();
-		String subTitel = e.getSubtitel();
-		Date date= stringToDate(e.getDatum());
-		int locatieID = e.getLocatieID();
-		String contactPersoon = e.getContactPersoon();
-		String organisator = e.getOrganisator();
-		
-		
-		String query = "INSERT INTO event (naam, subtitel, datum, locatieID,  contactpersoon,organisator)";
-		query += "VALUES('" + naam + "', '" + subTitel + "',  " + date + ", "+ locatieID  + ", '" + contactPersoon + "', '"+ organisator + "')";
-
-		try {
-			 makeConnection();
-			 makeResultSetUpdate(query);
-
-		} catch (Exception ex) {
-				System.out.println("het toevoegen van een evenement is mislukt");
-		} 
-	}
-	
 	public void pasEvenementAan(Evenement e) throws ParseException{
 		String naam = e.getNaam();
 		String subTitel = e.getSubtitel();
 		int locatieID = e.getLocatieID();
 		String contactPersoon = e.getContactPersoon();
 		String organisator = e.getOrganisator();
-		//Date date= stringToDate(e.getDatum());
 		
 
 		String query = "UPDATE event SET naam='"+naam+"', subtitel='"+subTitel+"',datum='"+e.getDatum()+"',  locatieid="+locatieID+" , contactpersoon='"+contactPersoon+"', organisator='"+organisator+"'  where eventID='"+e.getEventID()+"'";
@@ -162,27 +148,21 @@ public class EvenementenIO extends DbAbstract {
 
 		try {
 			super.addUpdateRecord(query);
-			super.closeConnectRst();
+			super.closeConnection();
 
 		} catch (Exception ex) {
 			System.out.println(ex + "het linken van programma aan een event is mislukt");
 		}
 	}
-	public Date stringToDate(String Sdate) throws ParseException {
-		DateFormat formatter ; 
-		Date date ; 
-		   formatter = new SimpleDateFormat("dd-MM-yyyy");
-		   date = formatter.parse(Sdate);
-		   return date;
-	}
-	public String dateToString(Date date) {
-			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-		return  df.format(date);
-	}
-	public String date() throws ParseException{
-		Date date = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String dateBufferString = format.format(date);
-		return dateBufferString;
+	
+	public void removeEvent(String eventID){
+		String query = "DELETE FROM event where eventID='"+eventID+"'";
+		System.out.println(query);
+		try {
+			super.addUpdateRecord(query);
+			super.closeConnection();
+		} catch (Exception ex) {
+			System.out.println(ex + "het verwijderen van een evenement is niet gelukt.");
+		}  
 	}
 }

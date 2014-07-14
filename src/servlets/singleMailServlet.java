@@ -25,7 +25,7 @@ public class singleMailServlet extends HttpServlet   {
 		String eventID	= req.getParameter("eventID");	
 		System.out.println(mailID + genodigdeID + eventID);
 		
-		MailISendO mio= new MailISendO();
+		MailSendIO mio= new MailSendIO();
 		mio.constructor(eventID, mailID, true, genodigdeID);
 		
 			response.sendRedirect("status/status.jsp?eventID="+eventID);		

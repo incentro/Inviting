@@ -10,16 +10,13 @@
  </head> 
  <body> 
  <% 
- 	ZohoAPI zc = new ZohoAPI();
- ArrayList<ContactZoho> aContacts = new ArrayList<ContactZoho>() ;
+ decription myEncryptor= new decription();
  
- aContacts = zc.koppelContacten("970434000000438001");
- 
-out.println("<select>");
-for(ContactZoho l :  aContacts){
-	out.println("<option value='"+l.getId() +"'>"+ l.getVoornaam()  +"</option>");
-}
-out.println("</select>");
+ String stringToEncrypt="Ruben";
+ String encrypted=myEncryptor.encrypt(stringToEncrypt);
+ String decrypted=myEncryptor.decrypt(encrypted);
+
+
  %>
  </body> 
 </html>

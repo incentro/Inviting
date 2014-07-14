@@ -90,15 +90,15 @@
 				</p>
 				<fieldset>
 				<div class="sidebar">
-				<%
-				if (exist) {
-			%>
-				Vestuur een test mail naar een emailadres naar keuze
-				<input type="text" class="receiver" name="receiver"  placeholder="je-email@domein.nl">
-				<input	type="submit" class='button-menu' value="verstuur mail" id="verstuurTest" /> <span class='lader'></span>
-				<%
-				}
-			%>
+<%-- 				<% --%>
+<%--				if (exist) {
+<%-- 			%> --%>
+<!-- 				Vestuur een test mail naar een emailadres naar keuze -->
+<!-- 				<input type="text" class="receiver" name="receiver"  placeholder="je-email@domein.nl"> -->
+<!-- 				<input	type="submit" class='button-menu' value="verstuur mail" id="verstuurTest" /> <span class='lader'></span> -->
+<%-- 				<% --%>
+<%--				}
+<%-- 			%> --%>
 			<br  /><br /><br />
 			<p>
 			De tags hieronder kunnen gebruikt worden in de tekst. Dit word veranderd in de gegevens van de ontvanger:
@@ -109,9 +109,9 @@
 			<input type="text" value="{funtie}" title="de functie in het bedrijf van het contact" class="small">
 			<input type="text" value="{bedrijf}" title="het bedrijf waar het contact werkt" class="small">
 			<input type="text" value="{contactpersoon}" title="het contactpersoon van dit contact" class="small">
-			<input type="text" value="{aanmelden}" title="De aanmeldklop die verwijst naar de evenementenpagina" class="small">
-			<input type="text" value="{locatie-panel}" title="het locatiepanel met de adresgegevens" class="small">
-					
+			<input type="text" value="{element1}" title="Dit is element 1, dit is een variabel element die kan worden toegevoegd in de mail." class="small">
+			<input type="text" value="{element2}" title="Dit is element 2, dit is een variabel element die kan worden toegevoegd in de mail." class="small">
+			<input type="text" value="{element3}" title="Dit is element 3, dit is een variabel element die kan worden toegevoegd in de mail." class="small">		
 					
 				</div>
 				<div class="dynamic">

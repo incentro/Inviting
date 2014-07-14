@@ -17,11 +17,14 @@
 		
 
 		<h3>
-			Evenementen overzicht - welkom
+			Evenementen overzicht - Welkom
 			<%
 			out.print(request.getSession().getAttribute("userMail"));
 			//request.getSession().removeAttribute("userMail");
-			//String message = request.getParameter("message");
+			
+			if(request.getParameter("message") !=null) {
+				out.print("<br />"+request.getParameter("message"));
+			}
 		%>
 		</h3>
 		
@@ -29,12 +32,14 @@
 		<table class="table sortable">
 			<thead>
 				<tr>
-					<th>Naam</th>
-					<th >Contactpersoon</th>
+					<th class="size200">Naam</th>
+					<th class="size150">Contactpersoon</th>
 					<th class="datumCol">Datum</th>
+					<th >Type</th>
 					<th>Contacten</th>
 					<th>Hitlist</th>
 					<th>Todo</th>
+					<th>Verwijderde evenementen</th>
 				</tr>
 			</thead>
 			<tbody class='events'>

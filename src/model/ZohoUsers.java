@@ -5,11 +5,8 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -128,7 +125,7 @@ public class ZohoUsers extends DbAbstract {
 
 				aContacts = parseXML(postResp, true);
 
-				java.sql.Timestamp timeStamp = getDate();
+				java.sql.Timestamp timeStamp =  new java.sql.Timestamp(date.getTime());
 				try {
 					super.addUpdateRecord("UPDATE cache SET updated='"
 							+ timeStamp + "'");
@@ -206,28 +203,6 @@ public class ZohoUsers extends DbAbstract {
 		}
 
 		return array;
-	}
-	
-
-	// / ***********Get the current date in timestamp ************
-	public Timestamp getDate() {
-		java.util.Date date = null;
-		java.sql.Timestamp timeStamp = null;
-		try {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(new Date());
-			java.sql.Date dt = new java.sql.Date(calendar.getTimeInMillis());
-			java.sql.Time sqlTime = new java.sql.Time(calendar.getTime()
-					.getTime());
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd hh:mm:ss");
-			date = simpleDateFormat.parse(dt.toString() + " "
-					+ sqlTime.toString());
-			timeStamp = new java.sql.Timestamp(date.getTime());
-		} catch (ParseException pe) {
-		} catch (Exception e) {
-		}
-		return timeStamp;
 	}
 	
 	public String getKey(){

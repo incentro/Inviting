@@ -4,7 +4,7 @@
 <%@include file="../includes/login_check.jsp" %>
 <%      
 	String mail_1 			= "<img class='icon_status' src='../assets/img/iconset_status/email_green.png' title='Mail is verstuurd' /> ";
-	String mail_2 			= "<img class='icon_status' src='../assets/img/iconset_status/email_blue.png ' title='Mail onbekend' />";
+	String mail_2 			= "<img class='icon_status' src='../assets/img/iconset_status/email_blue.png ' title='Reminder gestuurd' />";
 	String mail_3 			= "<img class='icon_status' src='../assets/img/iconset_status/email_red.png' title='Mail is niet verstuurd' />";
 	String accept 		= "<img class='icon_status' src='../assets/img/iconset_status/check.png' title='Uitnodiging geaccepteerd' />";
 	String denied 		= "<img class='icon_status' src='../assets/img/iconset_status/delete.png' title='Uitnodiging geweigerd' />";
@@ -20,9 +20,8 @@
             OpmerkingIO oio = new OpmerkingIO();
             ArrayList<ContactZoho> gList = bIo.naamBezoekers(eventID);
         for(ContactZoho g : gList) {
-        	Status s = oio.getStatus(g.getId(), eventID);
         %>		
-           <tr class="hover" value="<%=g.getId()%>">
+            <tr class="hover" value="<%=g.getId()%>">
            		<td><input type="checkbox"  /></td>
               <td class="check"><a  href="persoonlijk_profiel.jsp?genodigdeID=<%=g.getId()%>&eventID=<%=eventID%>" ><%=g.getVoornaam() + " "+ g.getAchternaam()%></a></td>
 			 <td><%=g.getBedrijf() %></td>
@@ -30,37 +29,37 @@
 			 <td><%=g.getContactpersoon()%></td>
 			 <td>
 			  <%
-			  switch(s.getMailen()){
-				  case  1 : out.println(mail_3); 
+			  switch(g.getMailen()){
+				  case  1 : out.println(mail_1); 
 				  break;  
-				  case  2 : out.println(mail_1); 
+				  case  2 : out.println(mail_3); 
 				  break; 
 				  default:  out.println(mail_2);       
 			  break;
 			  }
 			  out.println(" | ");
-			  switch(s.getBellen()){
-				  case  1 : out.println(phone_3); 
+			  switch(g.getBellen()){
+				  case  1 : out.println(phone_1); 
 				  break;  
-				  case  2 : out.println(phone_1); 
+				  case  2 : out.println(phone_3); 
 				  break; 
 				  default:  out.println(phone_2);       
 				  break;
 			  }
 			  out.println(" | " );
-			  switch(s.getHardcopy()){
-				  case  1 : out.println(hardcopy_1); 
+			  switch(g.getHardcopy()){
+				  case  1 : out.println(hardcopy_2); 
 				  break;
-				  case  2 : out.println(hardcopy_2);
+				  case  2 : out.println(hardcopy_1);
 				  break;
 				  default:  out.println("x");       
 				  break;
 			  }
 			  out.println(" | ");
-			  switch(s.getStatus()){
-				  case  1 : out.println(undefined); 
+			  switch(g.getStatus()){
+				  case  1 : out.println(accept); 
 				  break;  
-				  case  2 : out.println(accept); 
+				  case  2 : out.println(undefined); 
 				  break; 
 				  case  3 : out.println(denied); 
 				  break; 
@@ -69,7 +68,7 @@
 			  }
 	
 			  out.println(" | ");
-			  out.println(s.getPrioriteit());
+			  out.println(g.getPrioriteit());
 
                         %>
             </td>

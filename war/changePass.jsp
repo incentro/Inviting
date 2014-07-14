@@ -19,24 +19,26 @@
 
 		<h3>
 			Change Password
-			<%
-if(request.getParameter("message") != null)	{
-	out.println(request.getParameter("message"));
-}	
-%>
 		</h3>
-	 <%@include file="includes/menu_back.html" %>
+	<div class="search-form">
+            <a href="eOverzicht.jsp"><input type="submit" value="Terug" class="button-menu" /></a>    
+            <%
+				if(request.getParameter("message") != null)	{
+					out.println(request.getParameter("message"));
+				}	
+			%>        
+        </div>
 		<form id="msform" method="post" action="changePass.do">
 	<!-- fieldset --> 
 
 	<fieldset class="show">
 		<h2 class="fs-title">Wachtwoord wijzigen</h2>
 		<h3 class="fs-subtitle">Verander hier je wachtwoord van dit account</h3>
-		
-		 		<input type="text" disabled="disabled"  name='user'  value='<%=(String)request.getSession().getAttribute("userMail") %>'  />
-		 		<input type="password" class="" name='current' placeholder="huidig" title="Geef je huidige wachtwoord op" />
-		 		<input type="password" class="" name='new' placeholder="nieuw" title="geef je nieuwe wachtwoord op" />
-		 		<input type="password" class="" name='newcheck' placeholder="check" title="geef nogmaals je nieuwe wachtwoord op" />
+
+		 		<input type="text"   name='username'  value='<%=(String)request.getSession().getAttribute("userMail") %>'  readonly   />
+		 		<input type="password" class="" name='current' placeholder="huidig" title="Geef je huidige wachtwoord op" required/>
+		 		<input type="password" class="" name='new' placeholder="nieuw" title="geef je nieuwe wachtwoord op" required/>
+		 		<input type="password" class="" name='newcheck' placeholder="check" title="geef nogmaals je nieuwe wachtwoord op" required/>
 
                 <input type="submit"  class="submit action-button" value="verander" /> 
 

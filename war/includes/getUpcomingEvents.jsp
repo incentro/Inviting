@@ -6,6 +6,7 @@
 		
 				EvenementenIO eIo = new EvenementenIO();
 				ActieIO aio				= new ActieIO();
+				DateHandler dh = new DateHandler();
 				
 				for (Evenement e : eIo.listUpcomingEvents()) {
 
@@ -18,16 +19,20 @@
 						%>
 					</td>
 					<td>
-						<%=  e.getDatum()	%>
+						<%= dh.dateToString(e.getDatum()) %>
 					</td>
-					<td><a href="uitnodigingen/uUitnodigen.jsp?eventID=<%out.print(e.getEventID()); %>">Uitnodigen</a></td>
-					<td><a href="status/status.jsp?eventID=<%out.print(e.getEventID()); %>">Status</a></td>
-					<td><a href="actiepage.jsp?eventID=<%=e.getEventID() %>">Todo
-					<%if(aio.checkActies(e.getEventID())) {
-						out.println("<span style='color:red'>!</span>");
-					}
-					%>	
+					<td>
+						<%=  e.getType()	%>
+					</td>
+					<td><a href="uitnodigingen/uUitnodigen.jsp?eventID=<%out.print(e.getEventID()); %>">Toevoegen</a></td>
+					<td><a href="status/status.jsp?eventID=<%out.print(e.getEventID()); %>">Voortgang</a></td>
+					<td><a href="actiepage.jsp?eventID=<%=e.getEventID() %>">Todo <% if(aio.checkActies(e.getEventID())){out.println("!");} %>
+						
 					</a></td>
+					<td><a href="#" value="<%= e.getEventID() %>" class="removed">
+					<%if(e.getRemoved()) {
+						out.println("verwijder");
+					}	%></a></td>
 			</tr>
 			<%
 				}

@@ -19,7 +19,6 @@
     </div>
 
         <h3>Programma opstellen</h3>
-
         <div class="search-form">
             <a href="../eOverzicht.jsp"><input type="submit" value="Terug" class="button-menu" /></a>            
         </div>
@@ -38,7 +37,7 @@
         String programmaTxt = p.getProgrammatxt();
 %>
 
-        <form class="opstelForm" action="../ProgrammaToevoegen.do" method="get">
+        <form class="opstelForm" action="../ProgrammaToevoegen.do" method="post">
             <input type="hidden" name="eventID" value="<%out.print(eventID); %>"></input>
 
             <div class="child">

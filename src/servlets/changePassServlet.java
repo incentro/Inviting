@@ -24,11 +24,11 @@ public class changePassServlet extends HttpServlet   {
 	protected void doPost(HttpServletRequest req, HttpServletResponse response) 
 			throws ServletException, IOException {
 		GebruikersIO gIo 	= new GebruikersIO();
-		String user 				= req.getParameter("user");
+		String user 				= req.getParameter("username");
 		String current 		= req.getParameter("current");
 		String nieuw 			= req.getParameter("new");
 		String newcheck 	= req.getParameter("newcheck");
-		
+		System.out.println("user= " + user);
 		try {
 			current	 = GebruikersIO.SHA1(current);
 			nieuw 		= GebruikersIO.SHA1(nieuw);

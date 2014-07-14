@@ -190,7 +190,7 @@ a {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#dddddd',GradientType=0 );
   /* IE6-9 */
   border: 1px solid #999999;
-  position: absolute;
+  position: fixed;
   margin: 10px 0 10px 10px;
   width: 150px;
   height: auto;
@@ -420,14 +420,20 @@ h1 {
 
 /* line 32, ../sass/components/_forms.scss */
 .eDetails {
-  list-style: none;
-}
-/* line 34, ../sass/components/_forms.scss */
-.eDetails li {
   width: 450px;
-  border-bottom: 1px solid #ff7d00;
+  list-style: none;
+  float: left;
 }
-/* line 38, ../sass/components/_forms.scss */
+/* line 37, ../sass/components/_forms.scss */
+.eDetails.right {
+  width: 400px;
+}
+/* line 40, ../sass/components/_forms.scss */
+.eDetails li {
+  border-bottom: 1px solid #ff7d00;
+  display: block;
+}
+/* line 44, ../sass/components/_forms.scss */
 .eDetails li label {
   text-align: right;
   width: 120px;
@@ -436,23 +442,18 @@ h1 {
   display: inline-block;
   padding-right: 15px;
 }
-/* line 47, ../sass/components/_forms.scss */
-.eDetails li.lastDetail {
-  width: 950px;
-  border-bottom: 1px solid #ff7d00;
-}
-/* line 51, ../sass/components/_forms.scss */
+/* line 53, ../sass/components/_forms.scss */
 .eDetails li span {
   display: inline-block;
   margin-left: 30px;
 }
 
-/* line 58, ../sass/components/_forms.scss */
+/* line 60, ../sass/components/_forms.scss */
 .opstelForm {
   position: relative;
   width: 100%;
 }
-/* line 62, ../sass/components/_forms.scss */
+/* line 64, ../sass/components/_forms.scss */
 .opstelForm .child {
   width: 49%;
   float: left;
@@ -464,41 +465,41 @@ h1 {
   box-sizing: border-box;
   min-height: 350px;
 }
-/* line 71, ../sass/components/_forms.scss */
+/* line 73, ../sass/components/_forms.scss */
 .opstelForm .child.noheight {
   min-height: 0;
   margin-bottom: 30px;
   padding: 20px;
 }
-/* line 77, ../sass/components/_forms.scss */
+/* line 79, ../sass/components/_forms.scss */
 .opstelForm .child input {
   padding: 5px;
 }
-/* line 81, ../sass/components/_forms.scss */
+/* line 83, ../sass/components/_forms.scss */
 .opstelForm .child.right {
   float: right;
 }
-/* line 85, ../sass/components/_forms.scss */
+/* line 87, ../sass/components/_forms.scss */
 .opstelForm .child.bottom {
   width: 100%;
 }
-/* line 88, ../sass/components/_forms.scss */
+/* line 90, ../sass/components/_forms.scss */
 .opstelForm .child.bottom .floatRight {
   float: right;
 }
-/* line 92, ../sass/components/_forms.scss */
+/* line 94, ../sass/components/_forms.scss */
 .opstelForm .child label {
   width: 160px;
   float: left;
   margin: 5px;
 }
-/* line 98, ../sass/components/_forms.scss */
+/* line 100, ../sass/components/_forms.scss */
 .opstelForm .child input {
   width: 240px;
   margin: 5px;
   line-height: 150%;
 }
-/* line 104, ../sass/components/_forms.scss */
+/* line 106, ../sass/components/_forms.scss */
 .opstelForm .child .tooltip {
   background: url("../img/tooltip.png") no-repeat;
   width: 15px;
@@ -508,11 +509,11 @@ h1 {
   line-height: 15px;
   margin-bottom: -4px;
 }
-/* line 112, ../sass/components/_forms.scss */
+/* line 114, ../sass/components/_forms.scss */
 .opstelForm .child .tooltip span {
   display: none;
 }
-/* line 116, ../sass/components/_forms.scss */
+/* line 118, ../sass/components/_forms.scss */
 .opstelForm .child .tooltip:hover span {
   display: block;
   position: absolute;
@@ -521,7 +522,7 @@ h1 {
   color: #777777;
 }
 
-/* line 127, ../sass/components/_forms.scss */
+/* line 129, ../sass/components/_forms.scss */
 .createmail .content {
   float: left;
   padding: 8px;
@@ -533,7 +534,7 @@ h1 {
   min-height: 350px;
   width: 100%;
 }
-/* line 136, ../sass/components/_forms.scss */
+/* line 138, ../sass/components/_forms.scss */
 .createmail .content .toptext {
   width: 500px;
   margin: 0 auto;
@@ -541,35 +542,35 @@ h1 {
   font-size: 14px;
   padding: 10px;
 }
-/* line 144, ../sass/components/_forms.scss */
+/* line 146, ../sass/components/_forms.scss */
 .createmail .content .sidebar {
   float: right;
   width: 220px;
 }
-/* line 148, ../sass/components/_forms.scss */
+/* line 150, ../sass/components/_forms.scss */
 .createmail .content .sidebar .small {
   width: 150px;
   text-align: center;
 }
-/* line 154, ../sass/components/_forms.scss */
+/* line 156, ../sass/components/_forms.scss */
 .createmail .content .row {
   width: 650px;
   height: auto;
 }
-/* line 159, ../sass/components/_forms.scss */
+/* line 161, ../sass/components/_forms.scss */
 .createmail .content label {
   display: block;
   width: 200px;
   height: 22px;
   float: left;
 }
-/* line 165, ../sass/components/_forms.scss */
+/* line 167, ../sass/components/_forms.scss */
 .createmail .content select {
   width: 410px;
   position: relative;
   height: 26px;
 }
-/* line 170, ../sass/components/_forms.scss */
+/* line 172, ../sass/components/_forms.scss */
 .createmail .content input {
   position: relative;
   width: 396px;
@@ -577,15 +578,15 @@ h1 {
   margin: 5px 0;
   height: 22px;
 }
-/* line 177, ../sass/components/_forms.scss */
+/* line 179, ../sass/components/_forms.scss */
 .createmail .content .receiver {
   width: 200px;
 }
-/* line 180, ../sass/components/_forms.scss */
+/* line 182, ../sass/components/_forms.scss */
 .createmail .content .button-menu {
   width: 100px;
 }
-/* line 183, ../sass/components/_forms.scss */
+/* line 185, ../sass/components/_forms.scss */
 .createmail .content textarea {
   padding: 0 5px;
   width: 398px;
@@ -595,71 +596,71 @@ h1 {
   margin: 5px 0;
 }
 
-/* line 193, ../sass/components/_forms.scss */
+/* line 195, ../sass/components/_forms.scss */
 .contactgegevens {
   width: 445px;
   float: left;
   line-height: 20px;
   min-height: 380px;
 }
-/* line 198, ../sass/components/_forms.scss */
+/* line 200, ../sass/components/_forms.scss */
 .contactgegevens input {
   padding: 5px;
 }
-/* line 201, ../sass/components/_forms.scss */
+/* line 203, ../sass/components/_forms.scss */
 .contactgegevens select {
   padding: 5px;
 }
-/* line 204, ../sass/components/_forms.scss */
+/* line 206, ../sass/components/_forms.scss */
 .contactgegevens textblock {
   padding: 5px;
   border: 0px;
 }
-/* line 208, ../sass/components/_forms.scss */
+/* line 210, ../sass/components/_forms.scss */
 .contactgegevens .block {
   float: left;
   width: 200px;
   margin-bottom: 15px;
   min-height: 100px;
 }
-/* line 213, ../sass/components/_forms.scss */
+/* line 215, ../sass/components/_forms.scss */
 .contactgegevens .block label {
   display: block;
   font-weight: 700;
 }
 
-/* line 220, ../sass/components/_forms.scss */
+/* line 222, ../sass/components/_forms.scss */
 .status {
   width: 161px;
   float: left;
   height: 80px;
 }
-/* line 224, ../sass/components/_forms.scss */
+/* line 226, ../sass/components/_forms.scss */
 .status input {
   padding: 5px;
 }
-/* line 227, ../sass/components/_forms.scss */
+/* line 229, ../sass/components/_forms.scss */
 .status select {
   padding: 5px;
 }
 
-/* line 231, ../sass/components/_forms.scss */
+/* line 233, ../sass/components/_forms.scss */
 .status_groot {
   width: 470px;
   float: left;
   box-sizing: border-box;
   min-height: 200px;
 }
-/* line 236, ../sass/components/_forms.scss */
+/* line 238, ../sass/components/_forms.scss */
 .status_groot input {
   padding: 5px;
 }
-/* line 239, ../sass/components/_forms.scss */
+/* line 241, ../sass/components/_forms.scss */
 .status_groot select {
   padding: 5px;
 }
 
-/* line 243, ../sass/components/_forms.scss */
+/* line 245, ../sass/components/_forms.scss */
 .tipsy {
   font-size: 12px;
   position: absolute;
@@ -668,7 +669,7 @@ h1 {
   z-index: 100000;
 }
 
-/* line 244, ../sass/components/_forms.scss */
+/* line 246, ../sass/components/_forms.scss */
 .tipsy-inner {
   background-color: #000;
   color: #FFF;
@@ -678,7 +679,7 @@ h1 {
 }
 
 /* Rounded corners */
-/* line 247, ../sass/components/_forms.scss */
+/* line 249, ../sass/components/_forms.scss */
 .tipsy-inner {
   border-radius: 3px;
   -moz-border-radius: 3px;
@@ -687,7 +688,7 @@ h1 {
 
 /* Uncomment for shadow */
 /*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
-/* line 252, ../sass/components/_forms.scss */
+/* line 254, ../sass/components/_forms.scss */
 .tipsy-arrow {
   position: absolute;
   width: 0;
@@ -697,27 +698,27 @@ h1 {
 }
 
 /* Rules to colour arrows */
-/* line 255, ../sass/components/_forms.scss */
+/* line 257, ../sass/components/_forms.scss */
 .tipsy-arrow-n {
   border-bottom-color: #000;
 }
 
-/* line 256, ../sass/components/_forms.scss */
+/* line 258, ../sass/components/_forms.scss */
 .tipsy-arrow-s {
   border-top-color: #000;
 }
 
-/* line 257, ../sass/components/_forms.scss */
+/* line 259, ../sass/components/_forms.scss */
 .tipsy-arrow-e {
   border-left-color: #000;
 }
 
-/* line 258, ../sass/components/_forms.scss */
+/* line 260, ../sass/components/_forms.scss */
 .tipsy-arrow-w {
   border-right-color: #000;
 }
 
-/* line 260, ../sass/components/_forms.scss */
+/* line 262, ../sass/components/_forms.scss */
 .tipsy-n .tipsy-arrow {
   top: 0px;
   left: 50%;
@@ -728,7 +729,7 @@ h1 {
   border-right-color: transparent;
 }
 
-/* line 261, ../sass/components/_forms.scss */
+/* line 263, ../sass/components/_forms.scss */
 .tipsy-nw .tipsy-arrow {
   top: 0;
   left: 10px;
@@ -738,7 +739,7 @@ h1 {
   border-right-color: transparent;
 }
 
-/* line 262, ../sass/components/_forms.scss */
+/* line 264, ../sass/components/_forms.scss */
 .tipsy-ne .tipsy-arrow {
   top: 0;
   right: 10px;
@@ -748,7 +749,7 @@ h1 {
   border-right-color: transparent;
 }
 
-/* line 263, ../sass/components/_forms.scss */
+/* line 265, ../sass/components/_forms.scss */
 .tipsy-s .tipsy-arrow {
   bottom: 0;
   left: 50%;
@@ -759,7 +760,7 @@ h1 {
   border-right-color: transparent;
 }
 
-/* line 264, ../sass/components/_forms.scss */
+/* line 266, ../sass/components/_forms.scss */
 .tipsy-sw .tipsy-arrow {
   bottom: 0;
   left: 10px;
@@ -769,7 +770,7 @@ h1 {
   border-right-color: transparent;
 }
 
-/* line 265, ../sass/components/_forms.scss */
+/* line 267, ../sass/components/_forms.scss */
 .tipsy-se .tipsy-arrow {
   bottom: 0;
   right: 10px;
@@ -779,7 +780,7 @@ h1 {
   border-right-color: transparent;
 }
 
-/* line 266, ../sass/components/_forms.scss */
+/* line 268, ../sass/components/_forms.scss */
 .tipsy-e .tipsy-arrow {
   right: 0;
   top: 50%;
@@ -790,7 +791,7 @@ h1 {
   border-bottom-color: transparent;
 }
 
-/* line 267, ../sass/components/_forms.scss */
+/* line 269, ../sass/components/_forms.scss */
 .tipsy-w .tipsy-arrow {
   left: 0;
   top: 50%;
@@ -837,6 +838,30 @@ h1 {
   display: block;
 }
 /* line 35, ../sass/components/_formSlider.scss */
+#msform .fieldset {
+  background: white;
+  border: 0 none;
+  border-radius: 3px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  text-align: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  width: 80%;
+  margin: 0 10%;
+  /*stacking fieldsets above each other*/
+  position: absolute;
+  /*Hide all except first fieldset*/
+}
+/* line 52, ../sass/components/_formSlider.scss */
+#msform .fieldset:not(:nth-child(2)) {
+  display: none;
+}
+/* line 55, ../sass/components/_formSlider.scss */
+#msform .fieldset.show {
+  display: block;
+}
+/* line 61, ../sass/components/_formSlider.scss */
 #msform input, #msform textarea {
   -moz-box-sizing: border-box;
   padding: 15px;
@@ -849,13 +874,13 @@ h1 {
   color: #2C3E50;
   font-size: 13px;
 }
-/* line 47, ../sass/components/_formSlider.scss */
+/* line 73, ../sass/components/_formSlider.scss */
 #msform select {
   width: 260px;
   height: 30px;
   margin: 10px 0;
 }
-/* line 53, ../sass/components/_formSlider.scss */
+/* line 79, ../sass/components/_formSlider.scss */
 #msform .action-button {
   width: 250px;
   background: #ff7d00;
@@ -867,17 +892,17 @@ h1 {
   padding: 10px 5px;
   margin: 10px 5px;
 }
-/* line 64, ../sass/components/_formSlider.scss */
+/* line 90, ../sass/components/_formSlider.scss */
 #msform .action-button:hover, #msform .action-button:focus {
   box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
 }
-/* line 68, ../sass/components/_formSlider.scss */
+/* line 94, ../sass/components/_formSlider.scss */
 #msform.small {
   height: 200px;
 }
 
 /*headings*/
-/* line 73, ../sass/components/_formSlider.scss */
+/* line 99, ../sass/components/_formSlider.scss */
 .fs-title {
   font-size: 15px;
   text-transform: uppercase;
@@ -885,7 +910,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-/* line 79, ../sass/components/_formSlider.scss */
+/* line 105, ../sass/components/_formSlider.scss */
 .fs-subtitle {
   font-weight: normal;
   font-size: 13px;
@@ -914,63 +939,172 @@ h1 {
 .table th.checkbox {
   width: 3%;
 }
-/* line 20, ../sass/components/_table.scss */
-.table th.datumcol {
-  width: 11%;
+/* line 19, ../sass/components/_table.scss */
+.table th.size150 {
+  width: 150px;
 }
-/* line 23, ../sass/components/_table.scss */
+/* line 22, ../sass/components/_table.scss */
+.table th.size200 {
+  width: 200px;
+}
+/* line 26, ../sass/components/_table.scss */
+.table th.datumCol {
+  width: 80px;
+}
+/* line 29, ../sass/components/_table.scss */
 .table th.large {
   width: 55%;
 }
-/* line 27, ../sass/components/_table.scss */
+/* line 33, ../sass/components/_table.scss */
 .table .clickable {
   cursor: pointer;
 }
-/* line 30, ../sass/components/_table.scss */
+/* line 36, ../sass/components/_table.scss */
 .table .alert {
   background: #FFCC99;
 }
-/* line 33, ../sass/components/_table.scss */
+/* line 39, ../sass/components/_table.scss */
 .table tr {
   background: #f7f7f7;
 }
-/* line 35, ../sass/components/_table.scss */
+/* line 41, ../sass/components/_table.scss */
 .table tr td {
   padding: 4px 4px 4px 9px;
   padding-right: 25px;
   color: #6f6f6f;
+  word-wrap: break-word;
 }
-/* line 40, ../sass/components/_table.scss */
+/* line 47, ../sass/components/_table.scss */
 .table tr .small {
   width: 60px;
 }
-/* line 43, ../sass/components/_table.scss */
+/* line 50, ../sass/components/_table.scss */
 .table tr .green {
   color: green;
 }
-/* line 47, ../sass/components/_table.scss */
+/* line 54, ../sass/components/_table.scss */
 .table tr .red {
   color: red;
 }
-/* line 51, ../sass/components/_table.scss */
+/* line 58, ../sass/components/_table.scss */
 .table .odd {
-  background: #e9eaec;
+  background: #d5d6d8;
 }
-/* line 54, ../sass/components/_table.scss */
+/* line 61, ../sass/components/_table.scss */
 .table tr:hover {
   background: #ffe6cf;
   color: #333333;
 }
 
-/* line 60, ../sass/components/_table.scss */
+/* line 67, ../sass/components/_table.scss */
 .genodigden, .invited {
   cursor: pointer;
 }
 
-/* line 64, ../sass/components/_table.scss */
+/* line 71, ../sass/components/_table.scss */
 .icon_status {
   width: auto;
   height: 20px;
+}
+
+/* line 1, ../sass/components/_tabs.scss */
+#tabs-nav {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 5px;
+  background: #f7f7f7;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f7f7f7 0%, #dddddd 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #dddddd));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #f7f7f7 0%, #dddddd 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #f7f7f7 0%, #dddddd 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #f7f7f7 0%, #dddddd 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #f7f7f7 0%, #dddddd 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#dddddd',GradientType=0 );
+  /* IE6-9 */
+  border: 1px solid #999999;
+}
+
+/* line 6, ../sass/components/_tabs.scss */
+.tabs {
+  display: inline;
+  list-style-type: none;
+  padding: 2px;
+}
+/* line 11, ../sass/components/_tabs.scss */
+.tabs a {
+  text-decoration: none;
+  padding: 10px 100px;
+}
+/* line 15, ../sass/components/_tabs.scss */
+.tabs a:hover {
+  background: #dddddd;
+}
+/* line 19, ../sass/components/_tabs.scss */
+.tabs a.current {
+  font-weight: 700;
+  background: #dddddd;
+}
+
+/* line 27, ../sass/components/_tabs.scss */
+.table .events tr {
+  cursor: pointer;
+}
+
+/* line 31, ../sass/components/_tabs.scss */
+#popup {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+}
+/* line 40, ../sass/components/_tabs.scss */
+#popup #screen {
+  width: 600px;
+  height: 430px;
+  margin: 100px auto 0 auto;
+  background: #dddddd;
+  z-index: 10;
+}
+/* line 47, ../sass/components/_tabs.scss */
+#popup #screen .closeButton {
+  position: relative;
+  z-index: 999;
+  float: right;
+  width: 20px;
+  height: 20px;
+  top: -20px;
+  background: black;
+  color: white;
+  text-align: center;
+  font-size: medium;
+  font-weight: 900;
+  cursor: pointer;
+}
+/* line 62, ../sass/components/_tabs.scss */
+#popup #screen table {
+  width: 100%;
+}
+/* line 64, ../sass/components/_tabs.scss */
+#popup #screen table th {
+  height: 20px;
+}
+/* line 67, ../sass/components/_tabs.scss */
+#popup #screen table .first {
+  width: 20%;
+}
+/* line 70, ../sass/components/_tabs.scss */
+#popup #screen table .contact {
+  width: 40%;
 }
 
 /* line 1, ../sass/components/_button.scss */
@@ -1062,13 +1196,14 @@ h1 {
 /* line 38, ../sass/components/_button.scss */
 .nav .sub li a {
   text-decoration: none;
+  display: block;
 }
-/* line 42, ../sass/components/_button.scss */
+/* line 43, ../sass/components/_button.scss */
 .nav .sub li:hover {
   background: #dddddd;
 }
 
-/* line 51, ../sass/components/_button.scss */
+/* line 52, ../sass/components/_button.scss */
 .remove {
   width: 20px;
   height: auto;
@@ -1077,7 +1212,7 @@ h1 {
   cursor: pointer;
 }
 
-/* line 58, ../sass/components/_button.scss */
+/* line 59, ../sass/components/_button.scss */
 .addBlock {
   width: 20px;
   height: auto;
@@ -1086,7 +1221,7 @@ h1 {
   cursor: pointer;
 }
 
-/* line 66, ../sass/components/_button.scss */
+/* line 67, ../sass/components/_button.scss */
 .button-uitnodigen {
   padding: 5px 10px;
   background: #ff7d00;

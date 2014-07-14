@@ -1,6 +1,4 @@
 $(window).load(function() {
-	locatie();
-	gebruiker();
 	$("#gebruiker").click( function(){
 		var field = $(this).parent() ;
 		if(validate(field)) {
@@ -28,9 +26,18 @@ $(window).load(function() {
 			email : email
 		}, function(data) {
 			alert("gebruiker met emailadres: "+email+" verwijderd");
-			debugger;
-			$(this).parent().remove();
-			debugger;
+			$(this).parent().parent().remove();
+		});
+	});
+	
+	$(".table").on("click", "#locatieDelete", function() {
+		event.preventDefault();
+		var locatieID = $(this).attr("value");
+		$.post('deleteLocation.jsp', {
+			locatieID : locatieID
+		}, function(data) {
+			alert(data);
+			$(this).parent().parent().remove();
 		});
 	});
 
@@ -49,38 +56,6 @@ $(window).load(function() {
 			error("niet alle velden ingevuld");
 		}
 	} );
-	
-
-	$("#evenement").click( function(){
-		var field = $(this).parent() ;
-		if(validate(field)) {
-			 var gebruiker 	= $( "select[name='event_gebruiker']" ).val();
-			 var titel 				= $( "input[name='event_titel']" ).val();
-			 var subtitel 		= $( "input[name='event_subtitel']" ).val();
-			 var datum			=	$( "input[name='event_datum']" ).val();
-			 var organisator=	$( "input[name='event_organisator']" ).val();
-			 var adres			=	$( "select[name='event_adres']" ).val();
-			 var button		=	"home";
-				 insert("addEvent.jsp",gebruiker, titel, subtitel, datum, organisator, adres, button);
-
-		} else{
-			error("niet alle velden ingevuld");
-		}
-	});
-	
-	function locatie() {
-		$.post('locaties.jsp', {
-		}, function(data) {
-			$(".event_adres").html(data);
-		});
-	}
-	
-	function gebruiker() {
-		$.post('gebruikers.jsp', {
-		}, function(data) {
-			$(".event_gebruiker").html(data);
-		});
-	}
 	
 	
 
@@ -105,11 +80,6 @@ $(window).load(function() {
 			v6: v6
 		}, function(data) {
 			succes(data, button);
-			 locatie();
-			 gebruiker();
-			 if(button == "home") {
-				 setTimeout(function(){ window.location = "../eOverzicht.jsp"; }, 3400);
-			 }
 		});
 	}
 	

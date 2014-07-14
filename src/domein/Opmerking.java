@@ -1,9 +1,12 @@
 package domein;
 
-public class Opmerking {
-	private String datum, opmerking, eventID, Status, gebruikerID, email;
+import java.util.Date;
 
-	public Opmerking(String datum, String opmerking,
+public class Opmerking {
+	private Date datum;
+	private String opmerking, eventID, Status, gebruikerID, email;
+
+	public Opmerking(Date datum, String opmerking,
 			String eventID, String status, String gebruikerID, String email) {
 		super();
 		this.datum = datum;
@@ -22,11 +25,11 @@ public class Opmerking {
 		this.email = email;
 	}
 
-	public String getDatum() {
+	public Date getDatum() {
 		return datum;
 	}
 
-	public void setDatum(String datum) {
+	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
 

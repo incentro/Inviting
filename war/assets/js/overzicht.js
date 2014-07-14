@@ -53,6 +53,23 @@ $(window).load(function() {
 	}
 	});
 	
+	$('.table').on('click', 'tr td a.removed', function(event) { 
+		event.preventDefault();
+		var id = $(this).attr('value');
+		remove(id);
+		$(this).parent().parent().fadeOut();
+	});
+
+	function remove(id) {
+		
+		$.post('includes/removeEvent.jsp', {
+			id : id,
+		}, function(data) {
+		}) . fail(function() {
+			alert( "Er is een error is het systeem. Probeer de pagina te verversen." );
+		  });
+		}
+	
 	function load(div){
 		$(div).append("<img class='loader' src='assets/img/ajax-loader.gif'/>");
 	}

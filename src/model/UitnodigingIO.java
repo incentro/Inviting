@@ -5,7 +5,7 @@ public class UitnodigingIO extends DbAbstract {
 	public void genodigdenToevoegen(String id, String eventID) {
 		
 		System.out.println("updaten................................................................");
-		String query2 = "INSERT INTO status (contact, eventID) VALUES('" + id + "','" + eventID + "')";
+		String query2 = "INSERT INTO status (`contact`, `eventID`, `key`) VALUES('" + id + "','" + eventID + "', SHA2('"+id+ eventID+"', 256))";
 
 		try {
 			super.addUpdateRecord(query2);

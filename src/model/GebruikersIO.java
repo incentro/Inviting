@@ -43,56 +43,7 @@ public class GebruikersIO extends DbAbstract {
 		} catch (Exception e) {
 				System.out.println(e + "Het toevoegen van een user is mislukt");
 		}
-	}
-
-	/*
-	 * AddGebruiker voor normale gebruiker zonder wachtwoord
-	 * 
-	 * @author rwijhe
-	 */
-	public ArrayList<Gebruiker> SearchListGebruikers(String value) {
-		ArrayList<Gebruiker> gList = new ArrayList<Gebruiker>();
-		try {
-			super.makeConnection();
-			ResultSet rs = super.makeResultSet("select * from gebruiker where voornaam like '%"+value+"%'OR achternaam like '%"+value+"%'");
-			while(rs.next()){
-				String id = rs.getString("id");
-				String email = rs.getString("email"); 
-				String voornaam = rs.getString("voornaam");
-				String achternaam = rs.getString("achternaam"); 
-				String bedrijf = rs.getString("bedrijf");
-				String telefoonnummer = rs.getString("telefoonnummer");
-				
-				Gebruiker g = new Gebruiker(id, email, voornaam, achternaam, bedrijf, telefoonnummer);
-				gList.add(g);
-			}
-		} catch (SQLException ex) {
-			System.out.println("Lijst evenementen ophalen mislukt.");
-		}
-		super.closeConnectRst();
-		return gList; 
-	}
-	
-	public void AddGebruiker(Gebruiker g) {
-		String email = g.getEmail();
-		// System.out.println(g.getEmail());
-		String voornaam = g.getVoornaam();
-		String achternaam = g.getAchternaam();
-		String bedrijf = g.getBedrijf();
-		String telefoonnummer = g.getTelefoonnummer();
-		String query = "INSERT INTO gebruiker (email, voornaam, achternaam, bedrijf, telefoonnummer, wachtwoord)";
-		query += "VALUES('" + email + "', '" + voornaam + "', '" + achternaam
-				+ "', '" + bedrijf + "', '" + telefoonnummer + "', 'NULL')";
-		super.addUpdateRecord(query);
-		try {
-			super.addUpdateRecord(query);
-			super.closeConnectRst();
-
-		} catch (Exception e) {
-				System.out.println(e + "het toevoegen van een gebruiker is mislukt");
-		}
-	}
-
+	}	
 	/*
 	 * deleteGebruiker voor het verwijderen van een user in de database.
 	 * 
@@ -116,23 +67,6 @@ public class GebruikersIO extends DbAbstract {
 		super.closeConnection();
 	}
 
-	/*
-	 * veranderen van data van een gebruiker met wachtwoord
-	 * 
-	 * @author rwijhe
-	 */
-	public void changeGebruiker(String email, String voornaam,
-			String achternaam, String bedrijf, String telefoonnummer) {
-
-		String query = "UPDATE `gebruiker` SET `email` = " + email
-				+ ",`voornaam` = " + voornaam + ",	`achternaam` = "
-				+ achternaam + "," + "`bedrijf` = " + bedrijf
-				+ ",`telefoonnummer` = " + telefoonnummer
-				+ ",`wachtwoord` = NULL  WHERE email=" + email + "";
-
-		super.addUpdateRecord(query);
-
-	}
 
 	public boolean Login(String mail, String wachtwoord) {
 		System.out.println("begin:" +mail + wachtwoord);

@@ -18,24 +18,26 @@
 		
 
 		<h3>
-			Change Password
-			<%
-if(request.getParameter("message") != null)	{
-	out.println(request.getParameter("message"));
-}	
-%>
+			Verander mailing wachtwoord
 		</h3>
-	 <%@include file="includes/menu_back.html" %>
+	 	<div class="search-form">
+            <a href="eOverzicht.jsp"><input type="submit" value="Terug" class="button-menu" /></a>    
+            <%
+				if(request.getParameter("message") != null)	{
+					out.println(request.getParameter("message"));
+				}	
+			%>        
+        </div>
 		<form id="msform" method="post" action="changeMail.do">
 	<!-- fieldset --> 
 
 	<fieldset class="show">
 		<h2 class="fs-title">Mail adres wijzigen</h2>
-		<h3 class="fs-subtitle">Verander hier het email adres waarmee de mails worden verstuurd</h3>
+		<h3 class="fs-subtitle">Hier kan het algemene e-mailadres gewijzigd worden waarmee alle mails verstuurd worden. Let op! Dit moet wel een gmail gerelateerd e-mailadres zijn.</h3>
 		
-		 		<input type="text"   			name='email'  placeholder='email adres' />
-		 		<input type="password" class="" name='pass' placeholder="nieuw" title="geef het wachtwoord op" />
-		 		<input type="password" class="" name='passcheck' placeholder="check" title="geef nogmaals het wachtwoord op" />
+		 		<input type="text"   			name='email'  placeholder='email adres'  required="required"/>
+		 		<input type="password" class="" name='pass' placeholder="nieuw" title="geef het wachtwoord op" required="required" />
+		 		<input type="password" class="" name='passcheck' placeholder="check" title="geef nogmaals het wachtwoord op" required="required" />
 
                 <input type="submit"  class="submit action-button" value="verander" /> 
 

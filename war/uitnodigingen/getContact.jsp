@@ -6,7 +6,7 @@
 		String id 	= request.getParameter("id");
 		GenodigdenIO gIo = new GenodigdenIO();
 			
-		ContactZoho contact = gIo.getContactData(id); 
+		ContactZoho contact = gIo.getContactDataI(id); 
 %>
 
 			<div class="select_header">Naam</div>

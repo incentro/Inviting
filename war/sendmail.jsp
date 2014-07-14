@@ -2,9 +2,9 @@
 <%@page import="model.*"%>
 <%@page import="domein.*"%>
 <%
-String eventID 		=request.getParameter("eventID");
+	String eventID 		=request.getParameter("eventID");
 String mailID 			= request.getParameter("mailID");
 
-MailISendO mio= new MailISendO();
+MailSendIO mio= new MailSendIO();
 mio.constructor(eventID, mailID, false,"");
 %>

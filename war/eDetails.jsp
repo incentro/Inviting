@@ -22,15 +22,16 @@
 		<% 
 		String eventID = request.getParameter("eventID");
 		EvenementenIO eIO = new EvenementenIO(); 
+		DateHandler dh = new DateHandler();
 		LocatieIO lIo = new LocatieIO();
 		UitnodigingIO uIo = new UitnodigingIO();
 		ProgrammaIO pIo = new ProgrammaIO();
 		Evenement e = eIO.getEvent(eventID);
 		Locatie l = lIo.getLocatie(e.getLocatieID());
-		
+
 	        int pID = e.getProgrammaID();
-	        Programma p = pIo.getProgramma(pID);        
-	            
+	        Programma p = pIo.getProgramma(pID);
+	        
 	        String vanTijd = p.getVanTijd();
 	        String totTijd = p.getTotTijd();
 	        String programmaTxt = p.getProgrammatxt();
@@ -41,12 +42,11 @@
 		
 		<div class="search-form">
             <a href="eOverzicht.jsp"><input type="submit" value="Terug" class="button-menu" /></a>
-            <a href="Aanmaken/programmaMaken.jsp?eventID=<%out.print(e.getEventID());%>">Programma aanpassen</a>
         </div>
 			<ul class="eDetails"> 
 				<li><label>Titel</label><span><%out.print(e.getNaam()); %></span></li>
 				<li><label>Subtitel</label><span><%out.print(e.getSubtitel()); %></span></li>
-				<li><label>Datum</label><span><%= e.getDatum() %></span></li>
+				<li><label>Datum</label><span><%= dh.dateToString(e.getDatum()) %></span></li>
 				<li></li>
 				<li><label>Adres</label><span><%out.print(l.getAdres()); %></span></li>	
 				<li><label>Postcode</label><span><%out.print(l.getPostcode()); %></span></li>		
@@ -56,11 +56,20 @@
 				<li></li>
 				<li><label>Contactpersoon</label><span><%out.print(e.getContactPersoon()); %></span></li>
 				<li class="lastDetail"><label>Organisator</label><span><%out.print(e.getOrganisator()); %></span></li>
+				<li><input type="button" onclick="location.href = 'event/eAanpassen.jsp?eventID=<%out.print(eventID);%>'" value="Aanpassen" class="button-menu" /></li>
 			</ul>
-			 
-				<input type="button" onclick="location.href = 'event/eAanpassen.jsp?eventID=<%out.print(eventID);%>'" value="Aanpassen" class="button-menu" />
-				
+			
+			 <ul class="eDetails right">
 
+               <li><label>Begintijd</label><span><%=vanTijd %></span></li>
+				<li><label>Eindtijd</label><span><%=totTijd %></span></li>
+                <li>
+                <textarea rows="15" name="programma" style="width: 100%;" disabled ><%   out.println(programmaTxt);       %>
+                    </textarea></li>
+               <li><input type="button" onclick="location.href = 'Aanmaken/programmaMaken.jsp?eventID=<%out.print(eventID);%>'" value="Aanpassen" class="button-menu" /></li>
+
+
+               </ul>
 	
 	</div>
     <%@include file="includes/footer.html" %>

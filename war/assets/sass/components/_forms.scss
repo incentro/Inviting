@@ -30,10 +30,16 @@
 }
 
 .eDetails {
-  list-style:none;
+	width:450px;
+  	list-style:none;
+  	float:left;
+  	
+  	&.right {
+  	width:400px;
+  	}
     li {
-      width:450px;
       border-bottom:1px solid #ff7d00;
+      display:block;
       
       label {
         text-align:right;
@@ -43,11 +49,7 @@
         display:inline-block;
         padding-right:15px;
       }
-      
-      &.lastDetail {
-        width:950px;
-        border-bottom:1px solid #ff7d00;
-      }
+
       span {
         display:inline-block;
         margin-left:30px;

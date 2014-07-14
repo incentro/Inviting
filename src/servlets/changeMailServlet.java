@@ -3,7 +3,6 @@ package servlets;
 import model.*;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +28,12 @@ public class changeMailServlet extends HttpServlet   {
 		String newcheck 			= req.getParameter("passcheck");
 		
 	if (nieuw.equals(newcheck)){
-			mio.setLogin(user, nieuw);
+			try {
+				mio.setLogin(user, nieuw);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			response.sendRedirect("changeMailing.jsp?message=Het+emailadres+is+gewijzigd.");
 		}
 		else {

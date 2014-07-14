@@ -2,14 +2,6 @@ package model;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import domein.Mail;
 import domein.MailLogin;
@@ -20,61 +12,7 @@ public class MailIO extends DbAbstract {
 	super();
     }
 
-    /*
-     * toevoegen van een programma
-     * 
-     * @author rwijhe
-     */
 
-    public String SendMail(String msg, String receiver, String subject) {
-    		String s = "Uw bericht is verstuurd naar:" ;
-    	   
-    	   try {
-    	/*Retrieve value from the text field using getParameter() method on Request object. Otherwise you can set it directly also if you are not using any interface */ 
-    		   MailLogin ml = getMailLogin();
-	         final String user	= ml.getEmail();
-    	     final String pass	= ml.getPass();
-    	     //create an instance of Properties Class     
-    	     Properties props = new Properties();
-    	     
-    	/* Specifies the IP address of your default mail server
-    	  for e.g if you are using gmail server as an email sever
-    	  you will pass smtp.gmail.com as value of mail.smtp host. As shown here in the coding. Change accordingly, if your email id is not an gmail id*/
-    	    
-    	     props.put("mail.smtp.auth", "true");
-    			props.put("mail.smtp.starttls.enable", "true");
-    			props.put("mail.smtp.host", "smtp.gmail.com");
-    			props.put("mail.smtp.port", "587");
-
-    	     
-    	 /*Pass Properties object(props) and Authenticator object   for authentication to Session instance */     
-
-    	    Session session = Session.getInstance(props,
-    	                        new javax.mail.Authenticator() {
-    	  protected PasswordAuthentication getPasswordAuthentication() {
-    	   return new PasswordAuthentication(user,pass);
-    	   }
-    	});
-    	 /* Create an instance of MimeMessage, it accept MIME types and headers */    
-    	 MimeMessage message = new MimeMessage(session);
-    	 message.setFrom(new InternetAddress(user));
-    	 message.addRecipient(Message.RecipientType.TO,new InternetAddress(receiver));
-    	 message.setSubject(subject);
-    	 message.setContent(msg, "text/html; charset=utf-8");
-    	 /* Transport class is used to deliver the message to the recipients */
-    	 Transport.send(message);
-    	 
-    	
-
-    	        }catch(Exception e){
-    	        	System.out.println(e + "Mailen mislukt");
-    	        	s = "verkeerd email adres ingevoerd: ";
-    	   e.printStackTrace(); 
-    	  }
-    	   
-    	   return s;
-    	
-    }
     	public Mail getGegevens(String eventID, int mailID){
     		Mail u = new Mail(mailID, "", "", "", "", "", "", "", "", "", "", "", "", "", "");
     		try {
@@ -174,6 +112,7 @@ public class MailIO extends DbAbstract {
     	}
     	
     	public MailLogin getMailLogin(){
+    	
     		MailLogin ml = new MailLogin("", "");
     		try {
     		    super.makeConnection();
@@ -181,8 +120,10 @@ public class MailIO extends DbAbstract {
     		    ResultSet rs = super.makeResultSet("SELECT email, pass FROM cache WHERE id=1");
     		   
     		    while (rs.next()) {	    
+    		    	 decription myEncryptor= new decription();
+    		    	 String decrypted=myEncryptor.decrypt(rs.getString("pass"));
     			    ml.setEmail(rs.getString("email"));
-    			    ml.setPass(rs.getString("pass"));
+    			    ml.setPass(decrypted);
     			}
     		    super.closeConnectRst();
     		}
@@ -192,9 +133,12 @@ public class MailIO extends DbAbstract {
 			return ml;	
     	}
     	
-    	public void setLogin(String mail, String pass){
+    	public void setLogin(String mail, String pass) throws Exception{
     		super.makeConnection();
-    		String query = "UPDATE `cache` SET `email`='"+mail+"',`pass`='"+pass+"' WHERE id=1";
+	    	 decription myEncryptor= new decription();
+	    	 String encrypted=myEncryptor.encrypt(pass);
+
+    		String query = "UPDATE `cache` SET `email`='"+mail+"',`pass`='"+encrypted+"' WHERE id=1";
 
     		try {
     			super.addUpdateRecord(query);

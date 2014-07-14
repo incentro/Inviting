@@ -7,10 +7,9 @@
 	String eventID =request.getParameter("eventID");
 	GenodigdenIO gio = new GenodigdenIO();
 	OpmerkingIO oio = new OpmerkingIO();
-	ContactZoho c = gio.getContactData(genodigdeID);
+	ContactZoho c = gio.getContactData(genodigdeID, eventID);
 	MailIO mio = new MailIO();
-	
-	Status s = oio.getStatus(genodigdeID, eventID);
+
 	ArrayList<Mail> mail = mio.getEventsGegevens(eventID);
 %>
 <!DOCTYPE html>
@@ -86,35 +85,35 @@
 		<!-- *****************Statuswijziging***************** -->
 		<fieldset class='status'>
 			<legend>bellen</legend>
-			<input type='radio' name='bellen' value='1' <%= (s.getBellen()== 1) ?  "checked" : "" %>><label>niet gebeld</label><br />
-				<input type='radio' name='bellen' value='2' <%= (s.getBellen()== 2) ?  "checked" : "" %>><label>gebeld</label><br />
-				<input type='radio' name='bellen' value='3' <%= (s.getBellen()== 3) ?  "checked" : "" %>><label>niet opgenomen</label><br />
+			<input type='radio' name='bellen' value='2' <%= (c.getBellen()== 2) ?  "checked" : "" %>><label>niet gebeld</label><br />
+				<input type='radio' name='bellen' value='1' <%= (c.getBellen()== 1) ?  "checked" : "" %>><label>gebeld</label><br />
+				<input type='radio' name='bellen' value='3' <%= (c.getBellen()== 3) ?  "checked" : "" %>><label>niet opgenomen</label><br />
 		</fieldset>
 		<fieldset class='status'>
 			<legend>mailen</legend>
 				
-				<input type='radio' name='mailen' value='1'  <%= (s.getMailen()== 1) ?  "checked" : "" %>><label>niet gemaild</label>	<br />
-				<input type='radio' name='mailen' value='2' <%= (s.getMailen()== 2) ?  "checked" : "" %>><label>mail verstuurd</label>	<br />
-				<input type='radio' name='mailen' value='3' <%= (s.getMailen()== 3) ?  "checked" : "" %>><label>reminder verstuurd</label>	<br />
+				<input type='radio' name='mailen' value='2'  <%= (c.getMailen()== 2) ?  "checked" : "" %>><label>niet gemaild</label>	<br />
+				<input type='radio' name='mailen' value='1' <%= (c.getMailen()== 1) ?  "checked" : "" %>><label>mail verstuurd</label>	<br />
+				<input type='radio' name='mailen' value='3' <%= (c.getMailen()== 3) ?  "checked" : "" %>><label>reminder verstuurd</label>	<br />
 		</fieldset>
 		<fieldset class='status'>	
 			<legend>hard copy</legend>
 				
-				<input type='radio' name='hardcopy' value='1' <%= (s.getHardcopy()== 1) ?  "checked" : "" %>>  <label>niet gestuurd</label>	<br />
-				<input type='radio' name='hardcopy' value='2' <%= (s.getHardcopy()== 2) ?  "checked" : "" %>><label>gestuurd</label>	<br />
+				<input type='radio' name='hardcopy' value='2' <%= (c.getHardcopy()== 2) ?  "checked" : "" %>>  <label>niet gestuurd</label>	<br />
+				<input type='radio' name='hardcopy' value='1' <%= (c.getHardcopy()== 1) ?  "checked" : "" %>><label>gestuurd</label>	<br />
 		</fieldset>
 		<fieldset class='status'>	
 				<legend>status</legend>
 				
-					<input type='radio' name='status' value='1'  <%= (s.getStatus()== 1) ?  "checked" : "" %>><label>afwachtend</label><br />
-					<input type='radio' name='status' value='2' <%= (s.getStatus()== 2) ?  "checked" : "" %>><label>geaccepteerd</label><br />
-					<input type='radio' name='status' value='3' <%= (s.getStatus()== 3) ?  "checked" : "" %>><label>geweigerd</label><br />
+					<input type='radio' name='status' value='2'  <%= (c.getStatus()== 2) ?  "checked" : "" %>><label>afwachtend</label><br />
+					<input type='radio' name='status' value='1' <%= (c.getStatus()==1) ?  "checked" : "" %>><label>geaccepteerd</label><br />
+					<input type='radio' name='status' value='3' <%= (c.getStatus()== 3) ?  "checked" : "" %>><label>geweigerd</label><br />
 		</fieldset>
 		<fieldset class='status'>	
 				<legend>prioriteit</legend>
 				
-		<span class="currentprio"><%=s.getPrioriteit() %></span><br />
-					1<input type="range" name="prioriteit" class="range" min="1" max="5" step='1' value="<%=s.getPrioriteit() %>">5
+		<span class="currentprio"><%=c.getPrioriteit() %></span><br />
+					1<input type="range" name="prioriteit" class="range" min="1" max="5" step='1' value="<%=c.getPrioriteit() %>">5
 				
 		</fieldset>
 		</form>		
@@ -124,7 +123,7 @@
 		
 		<form>
 		<fieldset class='status_groot'>
-			<legend>Status toevoegen</legend>
+			<legend>Opmerking toevoegen</legend>
 			<textarea rows="4" cols="61" name="opmerking" id="opmerking" placeholder="Opmerking toevoegen."></textarea>
 							
 					
@@ -137,11 +136,11 @@
 		<!-- *****************Formulier van de status toevoegen**************************** -->
 		<fieldset class='status_groot'>
 			<legend>todo toevoegen</legend>
-			<select name="locatie">
+			<select name="locatie" id="actor">
 	  			<% 
 						for(Gebruiker g : gIo.listGebruikers()){
 					%>
-						<option id="actor" value="<%=g.getEmail() %>"><%=g.getVoornaam() +" "+g.getAchternaam() %></option>
+						<option  value="<%=g.getVoornaam() +" "+g.getAchternaam() %>"><%=g.getVoornaam() +" "+g.getAchternaam() %></option>
 						<%} %>
 					</select>
 					<input type="date" " id="date" name="date" />
@@ -199,7 +198,6 @@
 			<thead>
 				<tr>
 					<th class="datumcol">Datum</th>
-		                <th>Naam</th>
 		                 <th>Actienemer</th>
 		                <th class="large">Actie</th>
 		                <th class="small">verwijder</th>

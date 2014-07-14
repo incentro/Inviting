@@ -7,7 +7,7 @@
 	
 	  	String name = request.getParameter("name");
 	  	String eventID = request.getParameter("eventID");
-	  	String value ="2";
+	  	String value ="1";
 	  	String contact	= request.getParameter("gebruikerID");
 
 	  	oIo.setStatus(eventID, contact, name, value);

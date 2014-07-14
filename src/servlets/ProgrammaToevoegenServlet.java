@@ -24,7 +24,7 @@ public class ProgrammaToevoegenServlet extends HttpServlet   {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse response) 
+	protected void doPost(HttpServletRequest req, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
 		String eventID = (String) req.getSession().getAttribute("eventID");
@@ -60,7 +60,7 @@ public class ProgrammaToevoegenServlet extends HttpServlet   {
 			eIo.linkProgramma(eventID, programmaID);
 		}
 		
-		response.sendRedirect("eOverzicht.jsp?message=Programma+toegevoegd.");
+		response.sendRedirect("eDetails.jsp?eventID="+eventID+"&message=Programma+toegevoegd.");
 	}
 }
 

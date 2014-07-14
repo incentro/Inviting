@@ -31,9 +31,9 @@ public class ZohoContacts extends DbAbstract {
 	}
 	
 	public void deleteAllContacts() {
+		System.out.println("delete all contacts");
 		try {
 			super.makeConnection();			
-			System.out.println("delete all contacts");
 				String queryDelete = "TRUNCATE TABLE contacts";
 				try {
 					
@@ -114,7 +114,7 @@ return aContacts;
 				firstContact++;
 				aantal ++;
 				
-				ContactZoho zohoContact = new ContactZoho("","", "","","", "", "", "","",	"", "", "", true);
+				ContactZoho zohoContact = new ContactZoho("","", "", "","","", "", "","", "", "", 0, 0, 0 ,0,0, true);
 				Element row = (Element) contacts.item(r);
 				System.out.println("contact nummer " + row.getAttribute("no"));
 				NodeList contact = row.getElementsByTagName("FL");
@@ -150,7 +150,7 @@ return aContacts;
 					case "Function Domain":
 						zohoContact.setFunctie_domain(fieldValue);
 						break;
-					case "Department":
+					case "Account Name":
 						zohoContact.setBedrijf(fieldValue);
 						break;
 					case "Phone":
@@ -195,7 +195,7 @@ return aContacts;
 			super.makeConnection();			
 			for(ContactZoho g : aContacts) {
 			String	functie  = g.getFunctie().replaceAll( "'" ,"\\\\'");
-				String query = "REPLACE INTO contacts(id, voornaam, achternaam,email,functie,functie_level, functie_domain, bedrijf,telefoon, mobiel, contactpersoon)"
+				String query = "INSERT INTO contacts(id, voornaam, achternaam,email,functie,functie_level, functie_domain, bedrijf,telefoon, mobiel, contactpersoon)"
 						+ "VALUES("+g.getId()+", '"+g.getVoornaam().replaceAll( "'" ,"\\\\'")+"', '"+g.getAchternaam().replaceAll( "'" ,"\\\\'")+"', '"+g.getMail()
 						+"','"+functie+"','"+g.getFunctie_level()+"','"+g.getFunctie_domain()+"','"+g.getBedrijf().replaceAll( "'" ,"\\\\'")+"','"+g.getTelefoon()+"', '"+g.getMobiel()+"', '"+g.getContactpersoon().replaceAll( "'" ,"\\\\'")+"')";		
 							
@@ -208,6 +208,20 @@ return aContacts;
 			} finally {
 				super.closeConnection();
 			}
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			String currentTime = sdf.format(dt);
+		try {
+			super.addUpdateRecord("UPDATE cache SET updated='"
+					+ currentTime +"'");
+			System.out.println("date set at: " +currentTime);
+			super.closeConnection();
+
+		} catch (Exception e) {
+
+		}
 	}
 	
 	public String AddContactToEvent(String eventID, String contactID, String status) throws IOException{

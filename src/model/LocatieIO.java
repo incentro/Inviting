@@ -37,27 +37,27 @@ public class LocatieIO extends DbAbstract {
 		}
 	}
 	
+	public String deleteLocatie(String idS){
+		int id = Integer.parseInt(idS);
+		String query = "DELETE FROM `locatie` WHERE locatieID="+id +" ";
+		
+		try {
+			super.addUpdateRecord(query);
+			super.closeConnection();
+
+		} catch (Exception ex) {
+			System.out.println(ex + "verwijderen van locatie is mislukt");
+			return "Er is iets fout gegaan. De locatie is niet verwijderd.";
+		}
+		return "De locatie is verwijderd";
+	}
+	
 	/*
 	 * opzoeken van het adres doormiddel van het ID
 	 * 
 	 * @author dennisverleg
 	 * 
 	 */
-
-	public String getAdres(int id) {
-		String adres = "";
-		try {
-			super.makeConnection();
-			ResultSet rs = super.makeResultSet("SELECT * FROM locatie WHERE locatieID = "+id+"");
-			while (rs.next()) {			
-					adres = rs.getString("adres");
-				}		
-		} catch (Exception e) {
-			System.out.println(e + "ophalen van adres mislukt");
-		}
-		super.closeConnectRst();
-		return adres;
-	}
 	
 	public Locatie getLocatie(int id) {
 		Locatie l = new Locatie( id, "", "", "", "", "");
@@ -65,8 +65,6 @@ public class LocatieIO extends DbAbstract {
 			super.makeConnection();
 			ResultSet rs = super.makeResultSet("SELECT * FROM locatie WHERE locatieID = "+id+"");
 			while (rs.next()) {
-				// System.out.println(mail);
-				// System.out.println(mail	if (id == idCheck) {
 					l.setAdres(rs.getString("adres"));
 					l.setPlaats(rs.getString("plaats"));
 					l.setPostcode(rs.getString("postcode"));
@@ -79,35 +77,7 @@ public class LocatieIO extends DbAbstract {
 		super.closeConnectRst();
 		return l;
 	}
-	
-	/*
-	 * het verkrijgen van de plaats doormiddel van het ID
-	 * 
-	 * @author dennisverleg
-	 * 
-	 */
-
-	public String getPlaats(int id) {
-		String plaats = "";
-		try {
-			super.makeConnection();
-			ResultSet rs = super.makeResultSet("SELECT * FROM locatie");
-			while (rs.next()) {
-				int idCheck = (rs.getInt("locatieID"));
-				// System.out.println(mail);
-				// System.out.println(mailCheck);
-				if (id == idCheck) {
-					plaats = rs.getString("plaats");
-				}
-			}
-
-		} catch (Exception e) {
-			System.out.println("Plaats ophalen mislukt.");
-		}
-		super.closeConnectRst();
-		return plaats;
-	}
-	
+		
 	/*
 	 * het verkrijgen van alle locaties
 	 * 

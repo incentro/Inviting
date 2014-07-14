@@ -16,9 +16,15 @@
     &.checkbox {
     	width: 3%;
     }
+     &.size150 {
+    	width:150px;
+    }
+     &.size200 {
+    	width: 200px;
+    }
 
-    &.datumcol{
-      width:11%;
+    &.datumCol{
+      width:80px;
     }
     &.large {
     width:55%;
@@ -36,6 +42,7 @@
       padding: 4px 4px 4px 9px;
       padding-right:25px;
       color: #6f6f6f;
+      word-wrap:break-word;
     }
     .small {
     width:60px;

@@ -59,6 +59,7 @@ $(window).load(function() {
 	        complete: unload('.genodigden'), 
 			eventID : eventID,
 		}, function(data) {
+			alert("De contacten zijn gesynchroniseerd");
 			getNotinvited();
 			getInvited();
 			console.log(data);

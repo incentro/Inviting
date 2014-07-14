@@ -2,13 +2,14 @@ package domein;
 
 public class MailFormat {
 	int id;
-	String format, element1, element2, element3;
+	String naam, format, element1, element2, element3;
 	
-	public MailFormat(int id, String format, String element1, String element2,
+	public MailFormat(int id, String naam, String format, String element1, String element2,
 			String element3) {
 		super();
 		this.id = id;
 		this.format = format;
+		this.naam = naam;
 		this.element1 = element1;
 		this.element2 = element2;
 		this.element3 = element3;
@@ -20,6 +21,12 @@ public class MailFormat {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getNaam(){
+		return naam;
+	}
+	public void setNaam(String naam){
+		this.naam = naam;
 	}
 
 	public String getFormat() {

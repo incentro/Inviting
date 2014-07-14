@@ -13,7 +13,7 @@ String tel 		= request.getParameter("v4");
 String pass 	= request.getParameter("v5");
 String bedrijf 	= request.getParameter("v6");
 
-Gebruiker u = new Gebruiker(mail, vn, an, bedrijf, tel, pass);
+Gebruiker u = new Gebruiker(mail, vn, an, bedrijf, tel, pass, true);
 
 String succes = event.addUser(u);
 

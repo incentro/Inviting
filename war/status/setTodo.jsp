@@ -17,7 +17,6 @@
 	  	%>
 	  	<tr>
 	  				<td><%= date %></td>
-					<td><%=contact %></td>
 					<td><%=actor  %></td>
 					<td><%=text %></td>
 					<td><img src="../assets/img/remove-button.png" class="remove" value="<%=contact %>" /></td>
