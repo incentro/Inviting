@@ -8,6 +8,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+
  
 public class decription {
  
@@ -41,8 +42,8 @@ public class decription {
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] plainText = unencryptedString.getBytes(UNICODE_FORMAT);
             byte[] encryptedText = cipher.doFinal(plainText);
-            BASE64Encoder base64encoder = new BASE64Encoder();
-            encryptedString = base64encoder.encode(encryptedText);
+            //BASE64Encoder base64encoder = new BASE64Encoder();
+            //encryptedString = base64encoder.encode(encryptedText);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,10 +56,10 @@ public class decription {
         String decryptedText=null;
         try {
             cipher.init(Cipher.DECRYPT_MODE, key);
-            BASE64Decoder base64decoder = new BASE64Decoder();
-            byte[] encryptedText = base64decoder.decodeBuffer(encryptedString);
-            byte[] plainText = cipher.doFinal(encryptedText);
-            decryptedText= bytes2String(plainText);
+            //BASE64Decoder base64decoder = new BASE64Decoder();
+            //byte[] encryptedText = base64decoder.decodeBuffer(encryptedString);
+            //byte[] plainText = cipher.doFinal(encryptedText);
+            //decryptedText= bytes2String(plainText);
         } catch (Exception e) {
             e.printStackTrace();
         }

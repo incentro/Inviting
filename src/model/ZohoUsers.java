@@ -61,10 +61,10 @@ public class ZohoUsers extends DbAbstract {
 				 * ---------------------Get response as a string
 				 * ----------------------------
 				 */
-				new JdbcOdbcObject();
-				{
+				//new JdbcOdbcObject();
+				//{
 					// generate new auth token and call the API
-				}
+				//}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

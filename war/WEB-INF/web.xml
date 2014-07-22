@@ -17,7 +17,7 @@
 </error-page>
 
 <welcome-file-list>
-    <welcome-file>/eOverzicht.jsp</welcome-file>
+    <welcome-file>eOverzicht.jsp</welcome-file>
 </welcome-file-list>
 
  <!-- servlet login-->
